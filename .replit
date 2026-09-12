@@ -1,0 +1,16 @@
+modules = ["nodejs-22"]
+entrypoint = "web/server.mjs"
+run = "npm run dev:web"
+
+[env]
+ELECTRON_SKIP_BINARY_DOWNLOAD = "1"
+PORT = "3000"
+
+[deployment]
+build = ["sh", "-c", "ELECTRON_SKIP_BINARY_DOWNLOAD=1 npm ci && npm run build:web"]
+run = ["npm", "run", "start:web"]
+deploymentTarget = "cloudrun"
+
+[[ports]]
+localPort = 3000
+externalPort = 80

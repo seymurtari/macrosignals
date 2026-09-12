@@ -1,0 +1,13 @@
+node_modules/
+dist/
+release/
+*.log
+test-output/
+.cache/
+
+dist-web/
+.web-data/
+.env
+.env.*
+!.env.example
+*.enc

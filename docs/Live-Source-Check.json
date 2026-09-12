@@ -1,0 +1,158 @@
+{
+  "checkedAt": "2026-09-12T13:23:11.585Z",
+  "results": [
+    {
+      "id": "1",
+      "name": "10Y–3M Treasury yield spread",
+      "count": 9180,
+      "first": "1990-01-02",
+      "last": "2026-09-11",
+      "quality": "latest-revised"
+    },
+    {
+      "id": "2",
+      "name": "US high-yield credit spread",
+      "count": 787,
+      "first": "2023-09-12",
+      "last": "2026-09-10",
+      "quality": "latest-revised"
+    },
+    {
+      "id": "3",
+      "name": "Initial jobless claims, 4-week average",
+      "count": 1914,
+      "first": "1990-01-06",
+      "last": "2026-09-05",
+      "quality": "latest-revised"
+    },
+    {
+      "id": "4",
+      "name": "Bank lending standards: C&I loans",
+      "count": 146,
+      "first": "1990-04-01",
+      "last": "2026-07-01",
+      "quality": "latest-revised"
+    },
+    {
+      "id": "6",
+      "name": "10Y–2Y Treasury yield spread",
+      "count": 9180,
+      "first": "1990-01-02",
+      "last": "2026-09-11",
+      "quality": "latest-revised"
+    },
+    {
+      "id": "7",
+      "name": "Chicago Fed financial conditions index",
+      "count": 1914,
+      "first": "1990-01-05",
+      "last": "2026-09-04",
+      "quality": "latest-revised"
+    },
+    {
+      "id": "9",
+      "name": "Sahm rule unemployment change",
+      "count": 439,
+      "first": "1990-01-01",
+      "last": "2026-08-01",
+      "quality": "latest-revised"
+    },
+    {
+      "id": "10",
+      "name": "10-year TIPS real yield",
+      "count": 5927,
+      "first": "2003-01-02",
+      "last": "2026-09-10",
+      "quality": "latest-revised"
+    },
+    {
+      "id": "11",
+      "name": "10-year Treasury yield",
+      "count": 9179,
+      "first": "1990-01-02",
+      "last": "2026-09-10",
+      "quality": "latest-revised"
+    },
+    {
+      "id": "13",
+      "name": "Fed policy rate and FOMC decisions",
+      "count": 6480,
+      "first": "2008-12-16",
+      "last": "2026-09-12",
+      "quality": "latest-revised"
+    },
+    {
+      "id": "25",
+      "name": "Nonfarm payroll growth, 3-month average",
+      "count": 437,
+      "first": "1990-04-01",
+      "last": "2026-08-01",
+      "quality": "latest-revised"
+    },
+    {
+      "id": "29",
+      "name": "Core PCE inflation",
+      "count": 427,
+      "first": "1991-01-01",
+      "last": "2026-07-01",
+      "quality": "latest-revised"
+    },
+    {
+      "id": "37",
+      "name": "Building permits",
+      "count": 439,
+      "first": "1990-01-01",
+      "last": "2026-07-01",
+      "quality": "latest-revised"
+    },
+    {
+      "id": "41",
+      "name": "WTI crude oil price",
+      "count": 9222,
+      "first": "1990-01-02",
+      "last": "2026-09-09",
+      "quality": "latest-revised"
+    },
+    {
+      "id": "49",
+      "name": "VIX equity volatility index",
+      "count": 9271,
+      "first": "1990-01-02",
+      "last": "2026-09-10",
+      "quality": "latest-revised"
+    },
+    {
+      "id": "market",
+      "name": "S&P 500 price index",
+      "count": 2514,
+      "first": "2016-09-12",
+      "last": "2026-09-11",
+      "quality": "latest-revised"
+    },
+    {
+      "id": "recession",
+      "name": "NBER recession indicator",
+      "count": 440,
+      "first": "1990-01-01",
+      "last": "2026-08-01",
+      "quality": "latest-revised"
+    }
+  ],
+  "evaluation": {
+    "error": "Only 30 complete monthly observations (84 skipped for missing/stale inputs). At least 96 are required: 60+ training months, a horizon gap and 24-month final holdout. Import longer history or choose fewer predictors."
+  },
+  "defaultEvaluation": {
+    "mode": "exploratory-revised",
+    "features": [
+      "1",
+      "3",
+      "4",
+      "7",
+      "9"
+    ],
+    "evaluated": 47,
+    "holdout": 24,
+    "folds": 3,
+    "holdoutStart": "2024-03-31"
+  }
+}

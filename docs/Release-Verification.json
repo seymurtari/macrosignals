@@ -1,0 +1,14 @@
+{
+  "verifiedAt": "2026-09-12T16:20:11.302Z",
+  "file": "MacroSignals-0.1.1-Windows.exe",
+  "bytes": 101083163,
+  "sha256": "1bfe3fca5135eb0bf7e980ff9c16e8e8adace9c6a0bca1d89335eb5fab5e3a5a",
+  "runtimeArchitecture": "Windows x64",
+  "signed": false,
+  "packedFilesMatched": 14,
+  "packagedWorker": {
+    "evaluatedMonths": 239,
+    "holdoutMonths": 24
+  },
+  "nativeWindowsLaunchTested": false
+}

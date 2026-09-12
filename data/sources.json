@@ -1,0 +1,122 @@
+[
+  {
+    "id": "fred",
+    "name": "FRED / ALFRED",
+    "kind": "free",
+    "annualCost": "$0",
+    "coverage": "Macroeconomic series and available first-release histories",
+    "integration": "Built in: public CSV; API key for first releases",
+    "chrome": "No paid membership needed",
+    "url": "https://fred.stlouisfed.org/docs/api/fred/",
+    "note": "Series rights and historical coverage vary.",
+    "priceDate": "2026-09-12"
+  },
+  {
+    "id": "agencies",
+    "name": "BLS \u00b7 BEA \u00b7 Census \u00b7 Fed",
+    "kind": "free",
+    "annualCost": "$0",
+    "coverage": "Employment, inflation, growth, housing, monetary policy",
+    "integration": "Covered via FRED; CSV imports also supported",
+    "chrome": "Public releases",
+    "url": "https://www.bls.gov/developers/",
+    "note": "The app preserves displayed units and observation dates.",
+    "priceDate": "2026-09-12"
+  },
+  {
+    "id": "eia",
+    "name": "EIA",
+    "kind": "free",
+    "annualCost": "$0",
+    "coverage": "WTI, Brent and energy fundamentals",
+    "integration": "WTI / Brent via FRED",
+    "chrome": "No membership needed",
+    "url": "https://www.eia.gov/opendata/",
+    "note": "Spot prices; not continuous futures.",
+    "priceDate": "2026-09-12"
+  },
+  {
+    "id": "sec",
+    "name": "SEC EDGAR",
+    "kind": "free",
+    "annualCost": "$0",
+    "coverage": "Reported company financials",
+    "integration": "Import a defined aggregate; direct aggregation not included",
+    "chrome": "Public filings",
+    "url": "https://www.sec.gov/search-filings/edgar-application-programming-interfaces",
+    "note": "SEC data is not an analyst-consensus feed.",
+    "priceDate": "2026-09-12"
+  },
+  {
+    "id": "global",
+    "name": "OECD \u00b7 World Bank \u00b7 IMF",
+    "kind": "free",
+    "annualCost": "$0",
+    "coverage": "Global cycle and commodities",
+    "integration": "Copper via FRED; other series through CSV import",
+    "chrome": "Public datasets",
+    "url": "https://datahelpdesk.worldbank.org/knowledgebase/articles/889392-about-the-indicators-api-documentation",
+    "note": "Countries, histories and units vary.",
+    "priceDate": "2026-09-12"
+  },
+  {
+    "id": "eodhd",
+    "name": "EODHD",
+    "kind": "paid",
+    "annualCost": "$199 / $599.90 / $999.90",
+    "coverage": "EOD All World / Fundamentals / All-in-One",
+    "integration": "Compare only; permitted CSV imports",
+    "chrome": "API subscription can be reused after adapter integration",
+    "url": "https://eodhd.com/pricing",
+    "note": "Annual billing; index and consensus vintages may cost extra.",
+    "priceDate": "2026-09-12"
+  },
+  {
+    "id": "fmp",
+    "name": "Financial Modeling Prep",
+    "kind": "paid",
+    "annualCost": "$264 / $708 / $1,788",
+    "coverage": "Starter / Premium / Ultimate",
+    "integration": "Compare only; permitted CSV imports",
+    "chrome": "Existing API key requires appropriate entitlements",
+    "url": "https://site.financialmodelingprep.com/developer/docs/pricing",
+    "note": "Annual billing. Confirm display rights and exact history.",
+    "priceDate": "2026-09-12"
+  },
+  {
+    "id": "te",
+    "name": "Trading Economics",
+    "kind": "paid",
+    "annualCost": "Quote required",
+    "coverage": "Global macro, calendar and consensus",
+    "integration": "Compare only; permitted CSV imports",
+    "chrome": "Conditional Chrome access; API entitlement separate",
+    "url": "https://tradingeconomics.com/api/",
+    "note": "Annual cost depends on scope, volume and use.",
+    "priceDate": "2026-09-12"
+  },
+  {
+    "id": "koyfin",
+    "name": "Koyfin",
+    "kind": "browser",
+    "annualCost": "$0 / $468 / $948",
+    "coverage": "Free / Plus / Premium",
+    "integration": "Research membership; export rights unverified",
+    "chrome": "Conditional Chrome access after sign-in",
+    "url": "https://www.koyfin.com/pricing/",
+    "note": "Paid figures annualize displayed $39/$79 monthly rates; checkout may differ.",
+    "priceDate": "2026-09-12"
+  },
+  {
+    "id": "tv",
+    "name": "TradingView",
+    "kind": "browser",
+    "annualCost": "\u20ac0 / \u20ac155.40 / \u20ac359.40 / \u20ac719.40",
+    "coverage": "Basic / Essential / Plus / Premium",
+    "integration": "Research and permitted CSV exports",
+    "chrome": "Conditional Chrome access after sign-in",
+    "url": "https://www.tradingview.com/pricing/",
+    "note": "Observed EUR annual offer. Exchange fees and local pricing may differ.",
+    "priceDate": "2026-09-12"
+  }
+]
