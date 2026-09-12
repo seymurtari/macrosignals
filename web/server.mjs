@@ -57,8 +57,10 @@ export async function createApp({env=process.env,fetcher=fetch,store:givenStore}
     }
     throw Error('Unknown operation.');
   };
+  // no-referrer makes native form POST origins opaque (Origin: null).
+  // same-origin preserves login/logout origin checks without disclosing referrers to other sites.
   const server=http.createServer(async(req,res)=>{
-    res.setHeader('Cache-Control','no-store');res.setHeader('X-Content-Type-Options','nosniff');res.setHeader('Referrer-Policy','no-referrer');res.setHeader('X-Frame-Options','DENY');
+    res.setHeader('Cache-Control','no-store');res.setHeader('X-Content-Type-Options','nosniff');res.setHeader('Referrer-Policy','same-origin');res.setHeader('X-Frame-Options','DENY');
     res.setHeader('Content-Security-Policy',"default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'");
     if(production)res.setHeader('Strict-Transport-Security','max-age=31536000');
     try{
