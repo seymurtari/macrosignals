@@ -4,6 +4,11 @@ A personal workspace for macroeconomic indicators and market-downturn research. 
 
 ## Host on Replit
 
+1. Open [Replit Import](https://replit.com/import) and choose **GitHub**.
+2. Select the private **seymurtari/macrosignals** repository.
+3. Follow [the hosting guide, starting at section 2](docs/Replit-Hosting.md#2-import-into-replit) to configure your password, database and deployment address.
+4. Publish using **Autoscale**, then open the published link on your phone or laptop.
+
 The new web edition includes a mobile browser interface, password login, server-side FRED retrieval, shared PostgreSQL storage, browser CSV import/export and historical analysis. Follow **[the complete GitHub and Replit hosting instructions](docs/Replit-Hosting.md)**. Run `npm run build:web` to build and `npm run start:web` to serve production; required secrets and database setup are explained in the guide. No website has been deployed yet.
 
 The sections below describe the existing Windows release; web-specific storage and security differences are covered in the hosting guide.
@@ -23,7 +28,7 @@ Version 0.1.1 makes **20 years** the default view for selected KPIs and correlat
 
 The chart lists the actual available observation dates for each plotted KPI. **Selected KPI history** lists every selected indicator; click a row to open its individual 20-year chart. Shorter source histories remain shorter, and missing periods are not filled with invented values. The existing provider adapter requests history back to 1990, subject to each source's actual coverage. For example, a source supplying only 3 or 10 years cannot produce a full 20-year chart without a longer permitted import.
 
-To update, close the old app, extract the new download, and run **MacroSignals-0.1.1-Windows.exe**. The old process must be closed for the new version to start. No repository has been published to GitHub as part of this delivery.
+To update, close the old app, extract the new download, and run **MacroSignals-0.1.1-Windows.exe**. The old process must be closed for the new version to start. The source is stored in the private [seymurtari/macrosignals](https://github.com/seymurtari/macrosignals) repository; the executable is a separate download.
 
 The KPI catalogue now uses nine collapsible sections: rates and policy; credit and banking; money and liquidity; employment; inflation; growth and consumer demand; housing; global economy and commodities; and company earnings and equity markets. Research-priority numbers remain unchanged within each section. Group filtering, search and saved selections continue to work. The interface also includes a small-screen layout in preparation for a mobile web edition.
 
@@ -72,7 +77,7 @@ date,value,available_date
 
 Membership links open the default browser. If Chrome is your default, that is where you can use your existing signed-in account. The app does not access Chrome cookies or automate membership websites. A research membership does not automatically include API access or permitted exports. Paid providers currently have comparison cards and import support; direct paid API adapters are not included in 0.1.
 
-## Privacy, persistence and backups
+## Desktop privacy, persistence and backups
 
 Settings and observations are saved under Electron's per-user application-data directory, typically `%APPDATA%\MacroSignals\research` on Windows. The launcher location can change without moving this data. Cached observations remain available offline. Failed refreshes preserve them, malformed storage is retained in a recovery copy, and only one instance owns the workspace.
 
