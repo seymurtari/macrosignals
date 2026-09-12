@@ -18,6 +18,12 @@ test('Web authentication protects assets and data; imports/settings survive rest
   const env={APP_PASSWORD:password,DATA_DIR:dir};app=await start(env);
   for(const route of ['/','/main.js','/main.css'])assert.equal((await fetch(app.url+route,{redirect:'manual'})).status,303);
   assert.equal((await rpc(app,'','bootstrap')).status,401);
+  const loginPage=await fetch(app.url+'/login');
+  assert.equal(loginPage.headers.get('referrer-policy'),'same-origin');
+  for(const origin of ['null','https://attacker.invalid']){
+    const denied=await fetch(app.url+'/login',{method:'POST',headers:{Origin:origin,'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams({password}),redirect:'manual'});
+    assert.equal(denied.status,403);assert.equal(denied.headers.get('set-cookie'),null);
+  }
   const cookie=await login(app);
   assert.equal((await rpc(app,cookie,'save',{theme:'dark'},'https://attacker.invalid')).status,403);
   assert.equal((await rpc(app,cookie+'x','bootstrap')).status,401);
