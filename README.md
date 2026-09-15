@@ -114,3 +114,7 @@ npm run package:win
 The source uses Electron, React, D3 and a JavaScript statistical core. The initial proposal's Python/DuckDB components were removed after the fit review: this version uses one bundled runtime and atomic JSON snapshots, which suit this collection of time series and simplify local deployment. A database or Python service can be added if the workload grows. See [docs/Architecture-and-Fit.md](docs/Architecture-and-Fit.md).
 
 See [docs/Methodology.md](docs/Methodology.md) for calculation definitions and [docs/Validation.md](docs/Validation.md) for tested behavior and remaining limits. Third-party packages retain their own licenses; source data retains provider rights. This custom project does not copy Fincept or OpenBB source.
+
+### Automatic S&P 500 valuation updates
+
+Select **S&P 500 trailing P/E ratio** and **S&P 500 price-to-cash-flow ratio**, load their data, then enable **Refresh daily while MacroSignals is open** in Settings. No API key is required. P/E loads Multpl monthly history plus its latest estimate; price-to-cash-flow reads State Street index characteristics and accumulates snapshots from the first refresh. There is no price-to-cash-flow historical backfill. Public-page changes may interrupt refresh; existing cached data and imported histories are preserved. The web app must remain visible/open to refresh. Pull these changes into Replit and republish before using them on the hosted app.

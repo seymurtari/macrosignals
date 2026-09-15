@@ -30,10 +30,10 @@ export async function createApp({env=process.env,fetcher=fetch,store:givenStore}
     if(name==='bootstrap'){const snapshot=await store.snapshot();return {catalogue,sources,...snapshot,state:restorePreferences(snapshot.state,defaults),hasKey:!!env.FRED_API_KEY,secureVault:false,warnings:store.warnings,version:'0.2.0-web',platform:'web'};}
     if(name==='save')return store.update(validatedPatch(arg));
     if(name==='refresh-one'){
-      const def=catalogue.find(k=>k.id===arg?.id);if(!def||def.adapter!=='fred')throw Error('This KPI requires CSV import.');
+      const def=catalogue.find(k=>k.id===arg?.id);if(!def||!['fred','multpl','ssga'].includes(def.adapter))throw Error('This KPI requires CSV import.');
       const {state,cache}=await store.snapshot();
       if(['user-first-release','import-revised'].includes(cache[def.id]?.historyQuality))throw Error('Imported history is preserved. Remove it or select a different series.');
-      const series=await fetchMetric(def,{mode:state.mode,apiKey:env.FRED_API_KEY||'',fetcher,signal:AbortSignal.timeout(55000)},new Map());
+      const series=await fetchMetric(def,{previousSeries:cache[def.id],mode:state.mode,apiKey:env.FRED_API_KEY||'',fetcher,signal:AbortSignal.timeout(55000)},new Map());
       await store.putSeries(def.id,series);await store.update({lastRefresh:new Date().toISOString()});return series;
     }
     if(name==='import'){

@@ -125,10 +125,10 @@
     "kind": "browser",
     "annualCost": "$0 public viewing; export entitlement unverified",
     "coverage": "Trailing as-reported P/E charts and historical tables",
-    "integration": "CSV import; no automatic adapter",
+    "integration": "Automatic public-page refresh: monthly P/E history and latest estimate",
     "chrome": "Public reference pages",
     "url": "https://www.multpl.com/s-p-500-pe-ratio",
-    "note": "Use one consistent definition. Trailing P/E differs from forward P/E and CAPE. History must be imported in date,value format.",
+    "note": "No API key required. Up to 20 years loaded. Revised/estimated data, not point-in-time. Public page changes or access restrictions can interrupt refresh.",
     "priceDate": "2026-09-15"
   },
   {
@@ -137,10 +137,10 @@
     "kind": "browser",
     "annualCost": "$0 public viewing; historical data cost unverified",
     "coverage": "S&P 500 index Price/Cash Flow and Price/Earnings snapshots",
-    "integration": "CSV import; no automatic adapter",
+    "integration": "Automatic public-page refresh: index Price/Cash Flow snapshot",
     "chrome": "Public reference pages",
     "url": "https://www.ssga.com/us/en/individual/etfs/state-street-spdr-sp-500-etf-trust-spy",
-    "note": "Use Index Characteristics, not fund statistics. Confirm cash-flow methodology. A 20-year downloadable valuation history has not been verified.",
+    "note": "No API key required. Accumulates dated snapshots from first connection; no historical backfill. Uses Index Characteristics, not fund statistics. Public page changes or access restrictions can interrupt refresh.",
     "priceDate": "2026-09-15"
   }
 ]

@@ -1079,13 +1079,13 @@
   },
   {
     "category": "Earnings & markets",
-    "frequency": "monthly",
+    "frequency": "monthly history + latest estimate",
     "series": [],
     "transform": "level",
     "unit": "multiple (x)",
     "lagDays": 60,
-    "freshnessDays": 100,
-    "adapter": "import",
+    "freshnessDays": 45,
+    "adapter": "multpl",
     "default": false,
     "paidHint": false,
     "feature": "level",
@@ -1094,18 +1094,18 @@
     "rank": 51,
     "name": "S&P 500 trailing P/E ratio",
     "source": "Multpl / S&P reported earnings",
-    "url": "https://www.multpl.com/s-p-500-pe-ratio",
-    "why": "Index price divided by trailing 12-month as-reported earnings. Import a consistent monthly history; do not mix forward P/E, CAPE or providers with different aggregation methods. High ratios indicate valuation sensitivity, not a stand-alone downturn timing signal. Earnings near zero can distort P/E."
+    "url": "https://www.multpl.com/s-p-500-pe-ratio/table/by-month",
+    "why": "Index price divided by trailing 12-month as-reported earnings. Automatically loads up to 20 years of monthly history and the latest estimate from Multpl. Revised history, not first-release data. Do not mix forward P/E or CAPE. High ratios indicate valuation sensitivity, not a stand-alone downturn timing signal; earnings near zero can distort P/E."
   },
   {
     "category": "Earnings & markets",
-    "frequency": "monthly",
+    "frequency": "daily snapshot when published",
     "series": [],
     "transform": "level",
     "unit": "multiple (x)",
-    "lagDays": 60,
-    "freshnessDays": 100,
-    "adapter": "import",
+    "lagDays": 1,
+    "freshnessDays": 7,
+    "adapter": "ssga",
     "default": false,
     "paidHint": false,
     "feature": "level",
@@ -1115,7 +1115,7 @@
     "name": "S&P 500 price-to-cash-flow ratio",
     "source": "State Street S&P 500 index characteristics / licensed history",
     "url": "https://www.ssga.com/us/en/individual/etfs/state-street-spdr-sp-500-etf-trust-spy",
-    "why": "Price relative to cash flow, using a consistent provider definition and index aggregation method. State Street publishes a Price/Cash Flow snapshot under Index Characteristics; a 20-year downloadable history is not verified. Import permitted history, recording the cash-flow definition and treatment of negative values. Do not substitute price-to-free-cash-flow or SPY fund statistics. Elevated multiples indicate valuation sensitivity, not a stand-alone downturn timing signal."
+    "why": "Automatically reads Price/Cash Flow and its observation date from State Street S&P 500 Index Characteristics. Each refresh retains previous snapshots to build history from the first connection; no 20-year backfill is available. Uses the provider cash-flow and aggregation methodology, not free cash flow or SPY fund statistics. Revised snapshots are not first-release data. Elevated multiples alone do not time a downturn."
   },
   {
     "id": "market",

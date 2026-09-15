@@ -24,7 +24,7 @@ async function readKey(){if(sessionKey)return sessionKey;if(!secureVault())retur
 function handler(name,fn){ipcMain.handle(name,async(event,...args)=>{try{if(event.sender!==win?.webContents||event.senderFrame!==win.webContents.mainFrame||event.senderFrame.url!==appURL)throw Error('Untrusted application request.');return {ok:true,result:await fn(...args)};}catch(e){return errorResult(e);}});}
 async function refresh(ids){
   if(activeRefresh)throw Error('A refresh is already running.');
-  if(!Array.isArray(ids)||ids.length>52||ids.some(id=>!validIds.has(id)))throw Error('Invalid refresh request.');
+  if(!Array.isArray(ids)||ids.length>catalogue.length||ids.some(id=>!validIds.has(id)))throw Error('Invalid refresh request.');
   const {fetchMetric}=await coreModule('providers.mjs');
   const unique=[...new Set(ids)],controller=new AbortController();activeRefresh=controller;
   const componentCache=new Map(),errors=[],updated=[];let done=0;
@@ -32,9 +32,9 @@ async function refresh(ids){
     const apiKey=await readKey(),mode=store.state.mode;
     for(const id of unique){
       if(controller.signal.aborted)break;
-      const def=catalogue.find(k=>k.id===id);if(def.adapter!=='fred'){errors.push({id,error:'CSV import required; no direct connection.'});done++;continue;}
+      const def=catalogue.find(k=>k.id===id);if(!['fred','multpl','ssga'].includes(def.adapter)){errors.push({id,error:'CSV import required; no direct connection.'});done++;continue;}
       send({phase:'refresh',id,name:def.name,done,total:unique.length});
-      try{const series=await fetchMetric(def,{mode,apiKey,fetcher:net.fetch,signal:AbortSignal.any([controller.signal,AbortSignal.timeout(35000)])},componentCache);await store.putSeries(id,series);updated.push(id);}
+      try{const series=await fetchMetric(def,{mode,apiKey,previousSeries:store.cache[id],fetcher:net.fetch,signal:AbortSignal.any([controller.signal,AbortSignal.timeout(35000)])},componentCache);await store.putSeries(id,series);updated.push(id);}
       catch(e){errors.push({id,error:e.message});}
       done++;send({phase:'refresh',done,total:unique.length,id,errors:errors.length});
     }
@@ -84,7 +84,7 @@ if(ownsWorkspace)app.whenReady().then(async()=>{
   });
   await createWindow();
   // Only while the app is open; user enables this in Settings.
-  const timer=setInterval(()=>{if(store.state.autoRefresh&&!activeRefresh&&(!store.state.lastRefresh||Date.now()-Date.parse(store.state.lastRefresh)>23*60*60*1000))refresh([...store.state.selected.filter(id=>catalogue.find(k=>k.id===id).adapter==='fred'),'market','recession'].filter(id=>!['user-first-release','import-revised'].includes(store.cache[id]?.historyQuality))).then(r=>send({phase:'updated',...r})).catch(e=>send({phase:'error',error:e.message}));},60000);timer.unref();
+  const timer=setInterval(()=>{if(store.state.autoRefresh&&!activeRefresh&&(!store.state.lastRefresh||Date.now()-Date.parse(store.state.lastRefresh)>23*60*60*1000))refresh([...store.state.selected.filter(id=>['fred','multpl','ssga'].includes(catalogue.find(k=>k.id===id).adapter)),'market','recession'].filter(id=>!['user-first-release','import-revised'].includes(store.cache[id]?.historyQuality))).then(r=>send({phase:'updated',...r})).catch(e=>send({phase:'error',error:e.message}));},60000);timer.unref();
   app.on('activate',()=>{if(BrowserWindow.getAllWindows().length===0)createWindow();});
 });
 app.on('window-all-closed',()=>{activeRefresh?.abort();analysisWorker?.terminate();if(process.platform!=='darwin')app.quit();});

@@ -1,3 +1,4 @@
+import {fetchValuation} from './valuations.mjs';
 import {parseSeriesCSV,deriveMetric,validDate,today} from './series.mjs';
 
 async function checkedFetch(url,fetcher,signal) {
@@ -33,6 +34,7 @@ export async function fetchFred(seriesId,{mode='latest',apiKey='',startDate='199
   return {...parsed,historyQuality:'latest-revised',sourceUrl:'https://fred.stlouisfed.org/series/'+seriesId};
 }
 export async function fetchMetric(def,options={},componentCache=new Map()) {
+  if(['multpl','ssga'].includes(def.adapter))return fetchValuation(def,options);
   if(def.adapter!=='fred'||!def.series.length)throw Error('Import a permitted CSV for this indicator. A direct provider connection is not configured.');
   // Outcome series always use actual observations; they are never predictors.
   const mode=['market','recession'].includes(def.id)?'latest':options.mode;

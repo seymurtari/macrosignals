@@ -536,11 +536,13 @@ Earnings expectations and results, margins, equity breadth and volatility.
 
 ## S&P 500 valuation additions
 
-| ID | KPI | Definition | Data route |
+| ID | KPI | Automatic source | History |
 |---|---|---|---|
-| 51 | S&P 500 trailing P/E ratio | Price / trailing 12-month as-reported earnings | Monthly CSV import; [Multpl](https://www.multpl.com/s-p-500-pe-ratio) provides public historical reference tables. |
-| 52 | S&P 500 price-to-cash-flow ratio | Provider-defined index price / cash flow | CSV import; [State Street](https://www.ssga.com/us/en/individual/etfs/state-street-spdr-sp-500-etf-trust-spy) publishes a current Index Characteristics snapshot. Long historical export access is unverified. |
+| 51 | S&P 500 trailing P/E ratio | [Multpl monthly table](https://www.multpl.com/s-p-500-pe-ratio/table/by-month), including latest estimate | Up to 20 years of revised monthly history |
+| 52 | S&P 500 price-to-cash-flow ratio | [State Street Index Characteristics](https://www.ssga.com/us/en/individual/etfs/state-street-spdr-sp-500-etf-trust-spy) | Dated snapshots accumulate from the first refresh; no historical backfill |
 
-Find both under Company earnings & equity markets. Select them in the catalogue and use Import CSV with `date,value` columns, values in multiples (e.g. 25.0 means 25x). Imported series support the existing charts, correlations and watch conditions, including up to 20 years when supplied. These KPIs do not automatically refresh. No historical observations are bundled.
+Select both under Company earnings & equity markets. Use Refresh in the indicator details or Load free data. Enable **Refresh daily while MacroSignals is open** in Settings for daily updates. No API key is required. The web app must remain open and visible; this is not a server-side schedule.
 
-Keep the same provider and methodology across a series. Trailing P/E is distinct from forward P/E and CAPE. Price/cash flow is distinct from price/free cash flow; confirm the provider's denominator and aggregation method before importing. Use actual availability dates for genuine first-release observations. The 60-day lag is only an exploratory assumption, not a verified publication schedule. High valuations alone do not establish when a downturn will occur.
+The adapters read public HTML pages, validate the ratio and source observation date, and retain cached data on blocked requests, missing values, stale responses or format changes. Imported histories are preserved. Cash-flow observations with the same source date are updated, not duplicated. Missing historical periods are not fabricated.
+
+Keep the same provider and methodology across a series. Trailing P/E differs from forward P/E and CAPE. Cash flow differs from free cash flow; the cash-flow series uses the provider's index aggregation. Valuation series remain labeled revised even when FRED retrieval is set to first-release mode. They cannot qualify as first-release predictors. High valuations alone do not establish when a downturn will occur.

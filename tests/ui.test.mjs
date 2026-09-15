@@ -37,7 +37,7 @@ test('Four-page desktop UI preserves selections, handles refresh errors, renders
  document.querySelector('.history-coverage-row').click();await waitFor(()=>document.querySelector('.detail-history'));
  assert.match(document.querySelector('.detail-history').textContent,/up to 20 years/);
  document.dispatchEvent(new dom.window.KeyboardEvent('keydown',{key:'Escape',bubbles:true}));await waitFor(()=>!document.querySelector('[role=dialog]'));
- button('Data sources').click();await waitFor(()=>document.querySelectorAll('.source-card').length===10);
+ button('Data sources').click();await waitFor(()=>document.querySelectorAll('.source-card').length===sources.length);
  assert.match(document.body.textContent,/does not read Chrome cookies/);
  button('KPI catalogue').click();await waitFor(()=>document.querySelectorAll('.kpi-table .kpi-row').length===catalogue.filter(k=>k.rank>0).length);
  assert.equal(document.querySelectorAll('.group-header').length,9);
