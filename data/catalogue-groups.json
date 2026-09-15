@@ -7,5 +7,5 @@
  {"id":"growth","name":"Growth & consumer demand","description":"Business activity, production, spending, income and consumer expectations.","ids":["5","32","33","34","35","36","39"]},
  {"id":"housing","name":"Housing & construction","description":"Building permits and housing starts as indicators of construction demand.","ids":["37","38"]},
  {"id":"global","name":"Global economy & commodities","description":"Global leading indicators, oil, copper, the dollar and supply-chain pressure.","ids":["40","41","42","43","44","45"]},
- {"id":"earnings","name":"Company earnings & equity markets","description":"Earnings expectations and results, margins, equity breadth and volatility.","ids":["8","46","47","48","49","50"]}
+ {"id":"earnings","name":"Company earnings & equity markets","description":"Earnings expectations and results, margins, equity valuations, breadth and volatility.","ids":["8","46","47","48","49","50","51","52"]}
 ]

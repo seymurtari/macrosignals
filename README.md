@@ -1,6 +1,6 @@
 # MacroSignals — desktop and mobile web
 
-A personal workspace for macroeconomic indicators and market-downturn research. The four pages cover data sources, 50 selectable KPIs, trends and correlations, and an analysis lab.
+A personal workspace for macroeconomic indicators and market-downturn research. The four pages cover data sources, 52 selectable KPIs, trends and correlations, and an analysis lab.
 
 ## Host on Replit
 
@@ -39,7 +39,7 @@ The KPI catalogue now uses nine collapsible sections: rates and policy; credit a
 | Page | Working features |
 |---|---|
 | Data sources | Ten free/paid source groups, annual costs or quote requirement, billing qualifications, official links, saved membership notes, and Chrome/API access distinctions. |
-| KPI catalogue | All 50 research candidates, nine logical groups, priority order within groups, category/search filters, persistent selections, named watchlists, native units, last observation, source provenance, CSV import/export. |
+| KPI catalogue | All 52 research candidates, nine logical groups, priority order within groups, category/search filters, persistent selections, named watchlists, native units, last observation, source provenance, CSV import/export. |
 | Trends & links | Cached-data cards, up to five overlaid series, 1/3/5/10/20-year windows, standardization or explicit changes, correlation heatmap, source coverage, offline access and a dark theme. |
 | Analysis lab | Pearson/Spearman correlations, selected calendar leads/lags, 36-month rolling relationships, expanding-window logistic-regression backtests, a frozen 24-month holdout, calibration and baseline comparisons, persistent threshold rules, bond-duration scenarios, historical factor sensitivity, and Fed rate-change event studies. |
 
@@ -111,6 +111,6 @@ npm run package:win
 
 `npm run package:installer` is also provided for an NSIS installer when run on Windows, or on a suitably configured cross-build host with Wine. The present delivery uses the portable target because this build host lacks that installer-generation dependency. `npm run package:linux` produces an unpacked Linux directory; a Linux end-user release is not validated here. macOS signing/notarization and installers are not included.
 
-The source uses Electron, React, D3 and a JavaScript statistical core. The initial proposal's Python/DuckDB components were removed after the fit review: this version uses one bundled runtime and atomic JSON snapshots, which suit 50 time series and simplify local deployment. A database or Python service can be added if the workload grows. See [docs/Architecture-and-Fit.md](docs/Architecture-and-Fit.md).
+The source uses Electron, React, D3 and a JavaScript statistical core. The initial proposal's Python/DuckDB components were removed after the fit review: this version uses one bundled runtime and atomic JSON snapshots, which suit this collection of time series and simplify local deployment. A database or Python service can be added if the workload grows. See [docs/Architecture-and-Fit.md](docs/Architecture-and-Fit.md).
 
 See [docs/Methodology.md](docs/Methodology.md) for calculation definitions and [docs/Validation.md](docs/Validation.md) for tested behavior and remaining limits. Third-party packages retain their own licenses; source data retains provider rights. This custom project does not copy Fincept or OpenBB source.

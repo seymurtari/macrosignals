@@ -3,7 +3,7 @@ const validIds=new Set(catalogue.map(k=>k.id));
 function validatedPatch(input){
   if(!input||typeof input!=='object'||Array.isArray(input))throw Error('Invalid settings.');
   const p={};
-  if(input.selected!==undefined){if(!Array.isArray(input.selected)||input.selected.length>50||input.selected.some(id=>!validIds.has(id)||['market','recession'].includes(id)))throw Error('Invalid indicator selection.');p.selected=[...new Set(input.selected)];}
+  if(input.selected!==undefined){if(!Array.isArray(input.selected)||input.selected.length>catalogue.filter(k=>k.rank>0).length||input.selected.some(id=>!validIds.has(id)||['market','recession'].includes(id)))throw Error('Invalid indicator selection.');p.selected=[...new Set(input.selected)];}
   if(input.mode!==undefined){if(!['latest','firstRelease'].includes(input.mode))throw Error('Invalid data mode.');p.mode=input.mode;}
   if(input.theme!==undefined){if(!['light','dark'].includes(input.theme))throw Error('Invalid theme.');p.theme=input.theme;}
   if(input.autoRefresh!==undefined)p.autoRefresh=!!input.autoRefresh;

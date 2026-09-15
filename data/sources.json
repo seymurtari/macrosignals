@@ -118,5 +118,29 @@
     "url": "https://www.tradingview.com/pricing/",
     "note": "Observed EUR annual offer. Exchange fees and local pricing may differ.",
     "priceDate": "2026-09-12"
+  },
+  {
+    "id": "multpl",
+    "name": "Multpl \u2014 S&P 500 valuations",
+    "kind": "browser",
+    "annualCost": "$0 public viewing; export entitlement unverified",
+    "coverage": "Trailing as-reported P/E charts and historical tables",
+    "integration": "CSV import; no automatic adapter",
+    "chrome": "Public reference pages",
+    "url": "https://www.multpl.com/s-p-500-pe-ratio",
+    "note": "Use one consistent definition. Trailing P/E differs from forward P/E and CAPE. History must be imported in date,value format.",
+    "priceDate": "2026-09-15"
+  },
+  {
+    "id": "ssga-index",
+    "name": "State Street \u2014 S&P 500 index characteristics",
+    "kind": "browser",
+    "annualCost": "$0 public viewing; historical data cost unverified",
+    "coverage": "S&P 500 index Price/Cash Flow and Price/Earnings snapshots",
+    "integration": "CSV import; no automatic adapter",
+    "chrome": "Public reference pages",
+    "url": "https://www.ssga.com/us/en/individual/etfs/state-street-spdr-sp-500-etf-trust-spy",
+    "note": "Use Index Characteristics, not fund statistics. Confirm cash-flow methodology. A 20-year downloadable valuation history has not been verified.",
+    "priceDate": "2026-09-15"
   }
 ]

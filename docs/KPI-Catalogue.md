@@ -1,6 +1,6 @@
 # KPI catalogue
 
-Fifty research candidates. Priority order is a starting hypothesis, not a proven ranking. Automatic series use FRED; imports must already match the displayed definition and units. Two additional series are used exclusively as the market benchmark and retrospective recession outcome.
+52 research candidates. Priority order is a starting hypothesis, not a proven ranking. Automatic series use FRED; imports must already match the displayed definition and units. Two additional series are used exclusively as the market benchmark and retrospective recession outcome.
 
 ## Rates & monetary policy
 
@@ -533,3 +533,14 @@ Earnings expectations and results, margins, equity breadth and volatility.
 - Exploratory lag assumption: 0 calendar days from the observation date. This is not a verified release schedule.
 - Rights: Review source terms
 
+
+## S&P 500 valuation additions
+
+| ID | KPI | Definition | Data route |
+|---|---|---|---|
+| 51 | S&P 500 trailing P/E ratio | Price / trailing 12-month as-reported earnings | Monthly CSV import; [Multpl](https://www.multpl.com/s-p-500-pe-ratio) provides public historical reference tables. |
+| 52 | S&P 500 price-to-cash-flow ratio | Provider-defined index price / cash flow | CSV import; [State Street](https://www.ssga.com/us/en/individual/etfs/state-street-spdr-sp-500-etf-trust-spy) publishes a current Index Characteristics snapshot. Long historical export access is unverified. |
+
+Find both under Company earnings & equity markets. Select them in the catalogue and use Import CSV with `date,value` columns, values in multiples (e.g. 25.0 means 25x). Imported series support the existing charts, correlations and watch conditions, including up to 20 years when supplied. These KPIs do not automatically refresh. No historical observations are bundled.
+
+Keep the same provider and methodology across a series. Trailing P/E is distinct from forward P/E and CAPE. Price/cash flow is distinct from price/free cash flow; confirm the provider's denominator and aggregation method before importing. Use actual availability dates for genuine first-release observations. The 60-day lag is only an exploratory assumption, not a verified publication schedule. High valuations alone do not establish when a downturn will occur.
