@@ -30,6 +30,15 @@ test('Four-page desktop UI preserves selections, handles refresh errors, renders
  assert.ok(document.querySelectorAll('svg path[stroke]').length>=3);
  const range=document.querySelector('select[aria-label="Chart window"]');assert.equal(range.value,'240');
  assert.equal(document.querySelectorAll('.history-coverage-row').length,defaults.selected.length);
+ const cards=[...document.querySelectorAll('[aria-label="Selected KPI details"] button')];
+ assert.equal(cards.length,defaults.selected.length);
+ for(const card of cards){
+  card.click();await waitFor(()=>document.querySelector('[role=dialog]'));
+  assert.equal(document.querySelector('#detail-title').textContent,card.getAttribute('aria-label').replace('View details for ',''));
+  document.dispatchEvent(new dom.window.KeyboardEvent('keydown',{key:'Escape',bubbles:true}));await waitFor(()=>!document.querySelector('[role=dialog]'));
+ }
+ assert.ok(cards.some(card=>card.textContent.includes('No data loaded')));
+
  assert.match(document.querySelector('[aria-label="Displayed history coverage"]').textContent,/2015/);
  range.value='60';range.dispatchEvent(new dom.window.Event('change',{bubbles:true}));await waitFor(()=>saved===1);
  range.value='240';range.dispatchEvent(new dom.window.Event('change',{bubbles:true}));await waitFor(()=>saved===2);
