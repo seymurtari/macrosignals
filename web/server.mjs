@@ -11,7 +11,7 @@ const readJSON=async p=>JSON.parse(await readFile(new URL(p,import.meta.url),'ut
 const catalogue=await readJSON('../data/catalogue.json'),sources=await readJSON('../data/sources.json');
 const defaults={version:2,selected:catalogue.filter(k=>k.default).map(k=>k.id),mode:'latest',autoRefresh:false,theme:'light',rules:[],memberships:[],watchlists:[],trend:{ids:['1','2','3'],window:240,transform:'zscore'},lastRefresh:null};
 const equal=(a,b)=>timingSafeEqual(createHash('sha256').update(a).digest(),createHash('sha256').update(b).digest());
-const loginPage=`<!doctype html><html><head><meta name="viewport" content="width=device-width,initial-scale=1"><title>MacroSignals sign in</title><style>body{font:17px system-ui;background:#eef3f5;color:#193b42;margin:0;display:grid;place-items:center;min-height:100vh}main{width:min(85vw,360px);padding:28px;background:white;border-radius:20px}input,button{box-sizing:border-box;width:100%;padding:14px;margin-top:12px;font:inherit;border-radius:8px;border:1px solid #aebfc4}button{background:#17665f;color:white}p{line-height:1.5}</style></head><body><main><h1>MacroSignals</h1><p>Your private macroeconomic research workspace.</p><form method="post" action="/login"><label>Workspace password<input name="password" type="password" autocomplete="current-password" required autofocus></label><button>Sign in</button></form></main></body></html>`;
+const loginPage=`<!doctype html><html><head><meta name="viewport" content="width=device-width,initial-scale=1"><title>MacroSignals sign in</title><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=1"><link rel="icon" type="image/png" href="/apple-touch-icon.png?v=1"><style>body{font:17px system-ui;background:#eef3f5;color:#193b42;margin:0;display:grid;place-items:center;min-height:100vh}main{width:min(85vw,360px);padding:28px;background:white;border-radius:20px}input,button{box-sizing:border-box;width:100%;padding:14px;margin-top:12px;font:inherit;border-radius:8px;border:1px solid #aebfc4}button{background:#17665f;color:white}p{line-height:1.5}</style></head><body><main><h1>MacroSignals</h1><p>Your private macroeconomic research workspace.</p><form method="post" action="/login"><label>Workspace password<input name="password" type="password" autocomplete="current-password" required autofocus></label><button>Sign in</button></form></main></body></html>`;
 export async function createApp({env=process.env,fetcher=fetch,store:givenStore}={}){
   const password=env.APP_PASSWORD||'';
   if(password.length<20)throw Error('Set APP_PASSWORD in Secrets to a unique password of at least 20 characters.');
@@ -65,6 +65,8 @@ export async function createApp({env=process.env,fetcher=fetch,store:givenStore}
     if(production)res.setHeader('Strict-Transport-Security','max-age=31536000');
     try{
       const url=new URL(req.url,'http://localhost');
+      // Home-screen icon discovery must work before sign-in.
+      if(url.pathname==='/apple-touch-icon.png'&&req.method==='GET')return send(res,200,await readFile(new URL('../dist-web/apple-touch-icon.png',import.meta.url)),'image/png');
       if(url.pathname==='/healthz'&&req.method==='GET')return send(res,200,{ok:true});
       if(req.method==='POST'){
         const expected=origin||`http://${req.headers.host}`;

@@ -20,6 +20,14 @@ test('Web authentication protects assets and data; imports/settings survive rest
   assert.equal((await rpc(app,'','bootstrap')).status,401);
   const loginPage=await fetch(app.url+'/login');
   assert.equal(loginPage.headers.get('referrer-policy'),'same-origin');
+  const signInDOM=new JSDOM(await loginPage.text());
+  const iconHref=signInDOM.window.document.querySelector('link[rel="apple-touch-icon"]').getAttribute('href');
+  const icon=await fetch(app.url+iconHref,{redirect:'manual'});
+  assert.equal(icon.status,200);assert.equal(icon.headers.get('content-type'),'image/png');
+  const bytes=Buffer.from(await icon.arrayBuffer());
+  assert.equal(bytes.subarray(0,8).toString('hex'),'89504e470d0a1a0a');
+  assert.equal(bytes.readUInt32BE(16),180);assert.equal(bytes.readUInt32BE(20),180);
+  signInDOM.window.close();
   for(const origin of ['null','https://attacker.invalid']){
     const denied=await fetch(app.url+'/login',{method:'POST',headers:{Origin:origin,'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams({password}),redirect:'manual'});
     assert.equal(denied.status,403);assert.equal(denied.headers.get('set-cookie'),null);
@@ -35,6 +43,9 @@ test('Web authentication protects assets and data; imports/settings survive rest
   const oldUrl=app.url;await app.close();app=await start(env);const cookie2=await login(app);
   const reopened=await (await rpc(app,cookie2,'bootstrap')).json();assert.deepEqual(reopened.result.state.selected,['1','13']);assert.equal(reopened.result.cache['1'].observations.length,2);
   const html=await (await fetch(app.url,{headers:{Cookie:cookie2}})).text();assert.match(html,/connect-src 'self'/);
+  const appDOM=new JSDOM(html);
+  assert.equal(appDOM.window.document.querySelector('link[rel="apple-touch-icon"]').getAttribute('href'),iconHref);
+  appDOM.window.close();
   dom=new JSDOM('<!doctype html><div id="root"></div>',{url:app.url,runScripts:'outside-only',pretendToBeVisual:true});
   dom.window.fetch=(url,options={})=>fetch(app.url+url,{...options,headers:{...options.headers,Origin:app.url,Cookie:cookie2}});
   dom.window.ResizeObserver=class{constructor(cb){this.cb=cb;}observe(){this.cb([{contentRect:{width:390}}]);}disconnect(){}};
