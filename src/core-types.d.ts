@@ -1,5 +1,7 @@
 declare module '*.mjs' {
  export const DAY:number;
+ export function observationStale(def:any,date?:string|null,now?:Date):boolean;
+ export function refreshableIds(catalogue:any[],selected:string[],cache:Record<string,any>):string[];
  export function monthIndex(d:string):number;
  export function monthEnd(d:number):string;
  export function monthly(points:any[]):any[];

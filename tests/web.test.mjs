@@ -88,3 +88,20 @@ test('Web worker returns a frozen research snapshot and server refresh preserves
  const refresh=await (await rpc(app,cookie,'refresh-one',{id:'13'})).json();assert.equal(refresh.ok,true,refresh.error);assert.equal(cache['13'].observations.length,2);
  }finally{await app.close();}
 });
+
+test('Web server refreshes a due Treasury series after bootstrap without an open tab',async()=>{
+ const date=new Date().toISOString().slice(0,10);
+ let state={version:2,selected:['11'],mode:'latest',autoRefresh:true,theme:'light',rules:[],memberships:[],watchlists:[],trend:{ids:['11'],window:240,transform:'native'},lastRefresh:null};
+ const cache={market:{historyQuality:'import-revised'},recession:{historyQuality:'import-revised'}};
+ const store={warnings:[],snapshot:async()=>structuredClone({state,cache}),update:async patch=>(state={...state,...patch}),putSeries:async(id,series)=>{cache[id]=series;},close:async()=>{}};
+ const xml=`<feed><entry><content><m:properties><d:NEW_DATE>${date}T00:00:00</d:NEW_DATE><d:BC_10YEAR>5.18</d:BC_10YEAR></m:properties></content></entry></feed>`;
+ const app=await createApp({env:{APP_PASSWORD:password},store,fetcher:async url=>url.includes('home.treasury.gov')?new Response(xml):new Response('observation_date,DGS10\n2005-01-03,4.50\n')});
+ await new Promise(r=>app.server.listen(0,'127.0.0.1',r));app.url=`http://127.0.0.1:${app.server.address().port}`;
+ try{
+   const cookie=await login(app);
+   assert.equal((await rpc(app,cookie,'bootstrap')).status,200);
+   for(let i=0;i<100&&!cache['11'];i++)await new Promise(r=>setTimeout(r,10));
+   assert.equal(cache['11']?.observations.at(-1).value,5.18);
+   assert.equal(cache['11']?.latestSource,'U.S. Treasury');
+ }finally{await app.close();}
+});

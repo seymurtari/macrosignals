@@ -12,6 +12,18 @@
     "priceDate": "2026-09-12"
   },
   {
+    "id": "treasury",
+    "name": "U.S. Treasury daily rates",
+    "kind": "free",
+    "annualCost": "$0",
+    "coverage": "Daily nominal yields, yield spreads and 10-year TIPS real yields",
+    "integration": "Built in: official daily XML feed for recent rates; FRED for long history",
+    "chrome": "Public data; no membership needed",
+    "url": "https://home.treasury.gov/treasury-daily-interest-rate-xml-feed",
+    "note": "Rates are published on business days; holidays and provider updates affect freshness.",
+    "priceDate": "2026-09-24"
+  },
+  {
     "id": "agencies",
     "name": "BLS \u00b7 BEA \u00b7 Census \u00b7 Fed",
     "kind": "free",

@@ -5,7 +5,7 @@
     "name": "10Y\u20133M Treasury yield spread",
     "category": "Rates & policy",
     "frequency": "daily",
-    "source": "FRED / Treasury",
+    "source": "U.S. Treasury / FRED",
     "why": "Inversion and subsequent steepening; timing can be long and variable.",
     "series": [
       "T10Y3M"
@@ -17,7 +17,7 @@
     "adapter": "fred",
     "default": true,
     "paidHint": false,
-    "rights": "Review provider terms",
+    "rights": "Treasury public feed for recent rates; review FRED history terms",
     "url": "https://fred.stlouisfed.org/series/T10Y3M",
     "feature": "level"
   },
@@ -113,7 +113,7 @@
     "name": "10Y\u20132Y Treasury yield spread",
     "category": "Rates & policy",
     "frequency": "daily",
-    "source": "FRED / Treasury",
+    "source": "U.S. Treasury / FRED",
     "why": "A second curve measure; avoid giving it an independent full weight alongside 10Y\u20133M.",
     "series": [
       "T10Y2Y"
@@ -125,7 +125,7 @@
     "adapter": "fred",
     "default": true,
     "paidHint": false,
-    "rights": "Review provider terms",
+    "rights": "Treasury public feed for recent rates; review FRED history terms",
     "url": "https://fred.stlouisfed.org/series/T10Y2Y",
     "feature": "level"
   },
@@ -199,7 +199,7 @@
     "name": "10-year TIPS real yield",
     "category": "Rates & policy",
     "frequency": "daily",
-    "source": "Treasury / FRED",
+    "source": "U.S. Treasury / FRED",
     "why": "Rising real discount rates can pressure valuations.",
     "series": [
       "DFII10"
@@ -211,7 +211,7 @@
     "adapter": "fred",
     "default": true,
     "paidHint": false,
-    "rights": "Review provider terms",
+    "rights": "Treasury public feed for recent rates; review FRED history terms",
     "url": "https://fred.stlouisfed.org/series/DFII10",
     "feature": "level"
   },
@@ -221,7 +221,7 @@
     "name": "10-year Treasury yield",
     "category": "Rates & policy",
     "frequency": "daily",
-    "source": "Treasury / FRED",
+    "source": "U.S. Treasury / FRED",
     "why": "Level and rate of change; both sharp rises and growth-driven falls can matter.",
     "series": [
       "DGS10"
@@ -233,7 +233,7 @@
     "adapter": "fred",
     "default": true,
     "paidHint": false,
-    "rights": "Review provider terms",
+    "rights": "Treasury public feed for recent rates; review FRED history terms",
     "url": "https://fred.stlouisfed.org/series/DGS10",
     "feature": "level"
   },
@@ -243,7 +243,7 @@
     "name": "2-year Treasury yield",
     "category": "Rates & policy",
     "frequency": "daily",
-    "source": "Treasury / FRED",
+    "source": "U.S. Treasury / FRED",
     "why": "Tracks near-term policy expectations and repricing.",
     "series": [
       "DGS2"
@@ -255,7 +255,7 @@
     "adapter": "fred",
     "default": false,
     "paidHint": false,
-    "rights": "Review provider terms",
+    "rights": "Treasury public feed for recent rates; review FRED history terms",
     "url": "https://fred.stlouisfed.org/series/DGS2",
     "feature": "level"
   },

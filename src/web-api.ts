@@ -26,5 +26,15 @@ export const webApi:Api={
  backtest:async options=>{const r=await call('backtest',options);if(!r.ok)return r;lastResearch=r.result;return {ok:true,result:lastResearch.analysis};},
  onProgress:fn=>{listeners.add(fn);return()=>{listeners.delete(fn);};}
 };
-// Autoscale servers may sleep. Refresh is scheduled only by an open, visible tab.
-setInterval(async()=>{if(document.visibilityState!=='visible'||refreshing||!latest?.state.autoRefresh)return;const r=await webApi.bootstrap();if(!r.ok)return;const data=r.result!;if(data.state.lastRefresh&&Date.now()-Date.parse(data.state.lastRefresh)<23*3600000)return;const ids=[...data.state.selected.filter(id=>['fred','multpl','ssga'].includes(data.catalogue.find(k=>k.id===id)?.adapter||'')),'market','recession'].filter(id=>!['user-first-release','import-revised'].includes(data.cache[id]?.historyQuality));const refreshed=await webApi.refresh(ids);emit(refreshed.ok?{phase:'updated',...refreshed.result}:{phase:'error',error:refreshed.error});},60000);
+// The server checks for due indicators even without an open browser tab. Poll
+// while viewing so background updates become visible without a page reload.
+let polling=false;
+async function sync(){
+  if(document.visibilityState!=='visible'||refreshing||polling||!latest)return;
+  polling=true;
+  try{const before=latest;const r=await webApi.bootstrap();if(r.ok&&r.result&&
+    (r.result.state.lastRefresh!==before.state.lastRefresh||r.result.state.autoRefresh!==before.state.autoRefresh))emit({phase:'updated',...r.result});}
+  finally{polling=false;}
+}
+setInterval(sync,60000);
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')sync();});
