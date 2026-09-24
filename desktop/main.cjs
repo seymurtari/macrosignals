@@ -13,6 +13,7 @@ const validIds=new Set(catalogue.map(k=>k.id));
 const defaults={version:2,selected:catalogue.filter(k=>k.default).map(k=>k.id),mode:'latest',autoRefresh:false,theme:'light',rules:[],memberships:[],watchlists:[],trend:{ids:['1','2','3'],window:240,transform:'zscore'},lastRefresh:null};
 protocol.registerSchemesAsPrivileged([{scheme:'app',privileges:{standard:true,secure:true,supportFetchAPI:true}}]);
 let win,store,sessionKey='',activeRefresh=null,analysisWorker=null,lastResearch=null;
+const refreshAttempts=new Map();
 const appURL='app://macrosignals/index.html';
 const coreRoot=app.isPackaged?path.join(process.resourcesPath,'app.asar.unpacked','core'):path.join(__dirname,'../core');
 const coreModule=name=>import(pathToFileURL(path.join(coreRoot,name)).href);
@@ -34,8 +35,9 @@ async function refresh(ids){
       if(controller.signal.aborted)break;
       const def=catalogue.find(k=>k.id===id);if(!['fred','multpl','ssga'].includes(def.adapter)){errors.push({id,error:'CSV import required; no direct connection.'});done++;continue;}
       send({phase:'refresh',id,name:def.name,done,total:unique.length});
-      try{const series=await fetchMetric(def,{mode,apiKey,previousSeries:store.cache[id],fetcher:net.fetch,signal:AbortSignal.any([controller.signal,AbortSignal.timeout(35000)])},componentCache);await store.putSeries(id,series);updated.push(id);}
+      try{const series=await fetchMetric(def,{mode,apiKey,previousSeries:store.cache[id],fetcher:net.fetch,signal:AbortSignal.any([controller.signal,AbortSignal.timeout(55000)])},componentCache);await store.putSeries(id,series);updated.push(id);}
       catch(e){errors.push({id,error:e.message});}
+      finally{refreshAttempts.set(id,Date.now());}
       done++;send({phase:'refresh',done,total:unique.length,id,errors:errors.length});
     }
     if(updated.length)await store.update({lastRefresh:new Date().toISOString()});
@@ -59,7 +61,7 @@ if(ownsWorkspace)app.whenReady().then(async()=>{
   session.defaultSession.setPermissionRequestHandler((_w,_p,callback)=>callback(false));
   session.defaultSession.setPermissionCheckHandler(()=>false);
   handler('ms:bootstrap',async()=>({catalogue,sources,state:store.state,cache:store.cache,hasKey:!!await readKey(),secureVault:secureVault(),warnings:store.warnings,version:app.getVersion()}));
-  handler('ms:save',async patch=>store.update(validatedPatch(patch)));
+  handler('ms:save',async patch=>{const state=await store.update(validatedPatch(patch));if(patch?.autoRefresh)setTimeout(kickAuto,0).unref();return state;});
   handler('ms:refresh',refresh);
   handler('ms:cancel-refresh',()=>{activeRefresh?.abort();return true;});
   handler('ms:set-key',async key=>{if(typeof key!=='string'||key&&!/^[a-z0-9]{32}$/i.test(key))throw Error('Use the 32-character FRED API key.');sessionKey=key;const p=path.join(store.directory,'fred-key.enc');if(!key){await fs.rm(p,{force:true});return {saved:false,hasKey:false};}if(secureVault()){await fs.writeFile(p,safeStorage.encryptString(key),{mode:0o600});return {saved:true,hasKey:true};}return {saved:false,hasKey:true};});
@@ -83,8 +85,10 @@ if(ownsWorkspace)app.whenReady().then(async()=>{
     });
   });
   await createWindow();
-  // Only while the app is open; user enables this in Settings.
-  const timer=setInterval(()=>{if(store.state.autoRefresh&&!activeRefresh&&(!store.state.lastRefresh||Date.now()-Date.parse(store.state.lastRefresh)>23*60*60*1000))refresh([...store.state.selected.filter(id=>['fred','multpl','ssga'].includes(catalogue.find(k=>k.id===id).adapter)),'market','recession'].filter(id=>!['user-first-release','import-revised'].includes(store.cache[id]?.historyQuality))).then(r=>send({phase:'updated',...r})).catch(e=>send({phase:'error',error:e.message}));},60000);timer.unref();
+  // Each cached series has its own retrieval time. The first check runs on open.
+  async function kickAuto(){if(!store.state.autoRefresh||activeRefresh)return;try{const {dueIds}=await coreModule('freshness.mjs');const ids=dueIds(catalogue,store.state.selected,store.cache,refreshAttempts);if(ids.length)send({phase:'updated',...await refresh(ids)});}catch(e){send({phase:'error',error:e.message});}}
+  setTimeout(kickAuto,0).unref();
+  const timer=setInterval(kickAuto,60000);timer.unref();
   app.on('activate',()=>{if(BrowserWindow.getAllWindows().length===0)createWindow();});
 });
 app.on('window-all-closed',()=>{activeRefresh?.abort();analysisWorker?.terminate();if(process.platform!=='darwin')app.quit();});

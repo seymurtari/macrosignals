@@ -94,7 +94,7 @@ The catalogue has nine collapsible groups. Select KPIs there, then inspect their
 
 Settings includes **Sign out**. Sessions expire after seven days. Rotating `APP_PASSWORD` and restarting/republishing invalidates old sessions. FRED credentials are managed through Replit Secrets; they are never returned to the browser or included in exports.
 
-Daily refresh works only while an authenticated browser tab is open and visible. Autoscale can sleep when idle; this version does not pay for or schedule an always-running background task.
+Enable **Automatically refresh selected data** in Settings. The running web server checks each selected Treasury rate every hour and other connected KPIs after 23 hours, including while your browser tab is closed. Opening MacroSignals also checks immediately. The browser polls for completed updates while visible. Imported series are skipped. Replit Autoscale can stop the process when idle, so no updates occur while the deployment sleeps; opening the app wakes it and starts a check. For unattended checks during sleep, use an always-running deployment or an external scheduler.
 
 ## 7. Move existing desktop preferences and data
 

@@ -1,6 +1,6 @@
 export type Point={date:string;value:number;availableDate?:string|null;month?:string};
 export type KPI={id:string;rank:number;name:string;category:string;frequency:string;source:string;why:string;series:string[];transform:string;unit:string;lagDays:number;freshnessDays:number;adapter:string;default:boolean;paidHint?:boolean;rights:string;url:string};
-export type Series={id:string;observations:Point[];historyQuality:string;sourceUrl:string;source:string;unit:string;frequency:string;retrievedAt:string;missing:number};
+export type Series={id:string;observations:Point[];historyQuality:string;sourceUrl:string;source:string;latestSource?:string;providerWarning?:string|null;historyCheckedAt?:string|null;fredHistoryEnd?:string|null;unit:string;frequency:string;retrievedAt:string;missing:number};
 export type Source={id:string;name:string;kind:string;annualCost:string;coverage:string;integration:string;chrome:string;url:string;note:string;priceDate:string};
 export type Rule={id:string;kpiId:string;operator:'above'|'below';threshold:number;months:number};
 export type Settings={version:number;selected:string[];mode:string;autoRefresh:boolean;theme:'light'|'dark';rules:Rule[];memberships:string[];watchlists:{name:string;ids:string[]}[];trend:{ids:string[];window:number;transform:string};lastRefresh:string|null};

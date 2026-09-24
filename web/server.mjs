@@ -6,6 +6,7 @@ import {fileURLToPath} from 'node:url';
 import {createStore} from './store.mjs';
 import {validatedPatch,restorePreferences} from '../core/settings.cjs';
 import {fetchMetric} from '../core/providers.mjs';
+import {dueIds} from '../core/freshness.mjs';
 import {parseSeriesCSV,exportCSV} from '../core/series.mjs';
 const readJSON=async p=>JSON.parse(await readFile(new URL(p,import.meta.url),'utf8'));
 const catalogue=await readJSON('../data/catalogue.json'),sources=await readJSON('../data/sources.json');
@@ -23,18 +24,35 @@ export async function createApp({env=process.env,fetcher=fetch,store:givenStore}
   const cookieName=production?'__Host-ms_session':'ms_session';
   const cookie=(value,maxAge)=>`${cookieName}=${value}; Path=/; HttpOnly; SameSite=Strict; Max-Age=${maxAge}${production?'; Secure':''}`;
   const authenticated=req=>{const token=(req.headers.cookie||'').split('; ').find(v=>v.startsWith(cookieName+'='))?.slice(cookieName.length+1)||'';const [expires,sig]=token.split('.');return /^\d+$/.test(expires||'')&&Number(expires)>Date.now()&&Number(expires)<Date.now()+8*86400000&&!!sig&&equal(sig,signature(expires));};
-  let attempts=0,attemptWindow=Date.now(),workers=0;
+  let attempts=0,attemptWindow=Date.now(),workers=0,autoRunning=false,closed=false;
+  const refreshAttempts=new Map(),inFlight=new Set();
+  async function runAutoRefresh(){
+    if(closed||autoRunning)return;
+    autoRunning=true;
+    try{
+      const {state,cache}=await store.snapshot();if(!state.autoRefresh)return;
+      for(const id of dueIds(catalogue,state.selected,cache,refreshAttempts)){
+        if(closed)break;
+        if(inFlight.has(id))continue;
+        try{await api('refresh-one',{id});}catch(e){console.warn(`Auto-refresh ${id}: ${e.message}`);}
+      }
+    }catch(e){console.warn(`Auto-refresh check: ${e.message}`);}
+    finally{autoRunning=false;}
+  }
   async function body(req,limit=13000000){let size=0;const chunks=[];for await(const part of req){size+=part.length;if(size>limit)throw Error('Upload exceeds the allowed size.');chunks.push(part);}return Buffer.concat(chunks).toString('utf8');}
   const send=(res,status,data,type='application/json')=>{res.writeHead(status,{'Content-Type':type});res.end(type==='application/json'?JSON.stringify(data):data);};
   const api=async(name,arg)=>{
-    if(name==='bootstrap'){const snapshot=await store.snapshot();return {catalogue,sources,...snapshot,state:restorePreferences(snapshot.state,defaults),hasKey:!!env.FRED_API_KEY,secureVault:false,warnings:store.warnings,version:'0.2.0-web',platform:'web'};}
-    if(name==='save')return store.update(validatedPatch(arg));
+    if(name==='bootstrap'){const snapshot=await store.snapshot();if(snapshot.state.autoRefresh)setTimeout(runAutoRefresh,0).unref();return {catalogue,sources,...snapshot,state:restorePreferences(snapshot.state,defaults),hasKey:!!env.FRED_API_KEY,secureVault:false,warnings:store.warnings,version:'0.2.0-web',platform:'web'};}
+    if(name==='save'){const state=await store.update(validatedPatch(arg));if(arg?.autoRefresh)setTimeout(runAutoRefresh,0).unref();return state;}
     if(name==='refresh-one'){
       const def=catalogue.find(k=>k.id===arg?.id);if(!def||!['fred','multpl','ssga'].includes(def.adapter))throw Error('This KPI requires CSV import.');
+      if(inFlight.has(def.id))throw Error('This indicator is already refreshing.');inFlight.add(def.id);
+      try{
       const {state,cache}=await store.snapshot();
       if(['user-first-release','import-revised'].includes(cache[def.id]?.historyQuality))throw Error('Imported history is preserved. Remove it or select a different series.');
       const series=await fetchMetric(def,{previousSeries:cache[def.id],mode:state.mode,apiKey:env.FRED_API_KEY||'',fetcher,signal:AbortSignal.timeout(55000)},new Map());
       await store.putSeries(def.id,series);await store.update({lastRefresh:new Date().toISOString()});return series;
+      }finally{refreshAttempts.set(def.id,Date.now());inFlight.delete(def.id);}
     }
     if(name==='import'){
       const def=catalogue.find(k=>k.id===arg?.id);if(!def)throw Error('Unknown indicator.');
@@ -92,7 +110,8 @@ export async function createApp({env=process.env,fetcher=fetch,store:givenStore}
     }catch(error){const message=/database|password|connection|relation|SQL|certificate/i.test(error.message)?'Storage connection failed. Check the database configuration.':error.message;return send(res,400,{ok:false,error:message});}
   });
   server.requestTimeout=120000;server.headersTimeout=15000;
-  return {server,close:async()=>{server.closeAllConnections();await new Promise(resolve=>server.close(resolve));await store.close();}};
+  const timer=setInterval(runAutoRefresh,60000);timer.unref();
+  return {server,close:async()=>{closed=true;clearInterval(timer);server.closeAllConnections();await new Promise(resolve=>server.close(resolve));await store.close();}};
 }
 if(process.argv[1]===fileURLToPath(import.meta.url)){
   const {server}=await createApp();server.listen(Number(process.env.PORT||3000),'0.0.0.0',()=>console.log('MacroSignals web server ready.'));

@@ -1,6 +1,6 @@
 # KPI catalogue
 
-52 research candidates. Priority order is a starting hypothesis, not a proven ranking. Automatic series use FRED; imports must already match the displayed definition and units. Two additional series are used exclusively as the market benchmark and retrospective recession outcome.
+52 research candidates. Priority order is a starting hypothesis, not a proven ranking. Connected series use FRED for history; five Treasury rate indicators use the U.S. Treasury feed for recent observations. Imports must already match the displayed definition and units. Two additional series are used exclusively as the market benchmark and retrospective recession outcome. [Treasury daily feed documentation](https://home.treasury.gov/treasury-daily-interest-rate-xml-feed).
 
 ## Rates & monetary policy
 
@@ -119,7 +119,7 @@ Earnings expectations and results, margins, equity breadth and volatility.
 
 ### 1 — 10Y–3M Treasury yield spread
 
-- Source: FRED / Treasury — [official source](https://fred.stlouisfed.org/series/T10Y3M)
+- Source: U.S. Treasury (recent) / FRED (history) — [historical source](https://fred.stlouisfed.org/series/T10Y3M)
 - Display definition: level; percentage points.
 - Freshness limit: 7 calendar days from the observation date.
 - Exploratory lag assumption: 1 calendar days from the observation date. This is not a verified release schedule.
@@ -159,7 +159,7 @@ Earnings expectations and results, margins, equity breadth and volatility.
 
 ### 6 — 10Y–2Y Treasury yield spread
 
-- Source: FRED / Treasury — [official source](https://fred.stlouisfed.org/series/T10Y2Y)
+- Source: U.S. Treasury (recent) / FRED (history) — [historical source](https://fred.stlouisfed.org/series/T10Y2Y)
 - Display definition: level; percentage points.
 - Freshness limit: 7 calendar days from the observation date.
 - Exploratory lag assumption: 1 calendar days from the observation date. This is not a verified release schedule.
@@ -191,7 +191,7 @@ Earnings expectations and results, margins, equity breadth and volatility.
 
 ### 10 — 10-year TIPS real yield
 
-- Source: Treasury / FRED — [official source](https://fred.stlouisfed.org/series/DFII10)
+- Source: U.S. Treasury (recent) / FRED (history) — [historical source](https://fred.stlouisfed.org/series/DFII10)
 - Display definition: level; percent.
 - Freshness limit: 7 calendar days from the observation date.
 - Exploratory lag assumption: 1 calendar days from the observation date. This is not a verified release schedule.
@@ -199,7 +199,7 @@ Earnings expectations and results, margins, equity breadth and volatility.
 
 ### 11 — 10-year Treasury yield
 
-- Source: Treasury / FRED — [official source](https://fred.stlouisfed.org/series/DGS10)
+- Source: U.S. Treasury (recent) / FRED (history) — [historical source](https://fred.stlouisfed.org/series/DGS10)
 - Display definition: level; percent.
 - Freshness limit: 7 calendar days from the observation date.
 - Exploratory lag assumption: 1 calendar days from the observation date. This is not a verified release schedule.
@@ -207,7 +207,7 @@ Earnings expectations and results, margins, equity breadth and volatility.
 
 ### 12 — 2-year Treasury yield
 
-- Source: Treasury / FRED — [official source](https://fred.stlouisfed.org/series/DGS2)
+- Source: U.S. Treasury (recent) / FRED (history) — [historical source](https://fred.stlouisfed.org/series/DGS2)
 - Display definition: level; percent.
 - Freshness limit: 7 calendar days from the observation date.
 - Exploratory lag assumption: 1 calendar days from the observation date. This is not a verified release schedule.
