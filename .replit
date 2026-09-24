@@ -14,3 +14,8 @@ deploymentTarget = "cloudrun"
 [[ports]]
 localPort = 3000
 externalPort = 80
+
+[userenv]
+
+[userenv.production]
+APP_ORIGIN = "https://macrosignalst.replit.app"
