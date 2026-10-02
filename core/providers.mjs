@@ -1,3 +1,4 @@
+import {fetchEuropean} from './europe.mjs';
 import {fetchValuation} from './valuations.mjs';
 import {parseSeriesCSV,deriveMetric,validDate,today} from './series.mjs';
 import {TREASURY_FIELDS,fetchTreasury} from './treasury.mjs';
@@ -35,6 +36,7 @@ export async function fetchFred(seriesId,{mode='latest',apiKey='',startDate='199
   return {...parsed,historyQuality:'latest-revised',sourceUrl:'https://fred.stlouisfed.org/series/'+seriesId};
 }
 export async function fetchMetric(def,options={},componentCache=new Map()) {
+  if(['bundesbank','ecb'].includes(def.adapter))return fetchEuropean(def,options,componentCache);
   if(['multpl','ssga'].includes(def.adapter))return fetchValuation(def,options);
   if(def.adapter!=='fred'||!def.series.length)throw Error('Import a permitted CSV for this indicator. A direct provider connection is not configured.');
   if(TREASURY_FIELDS[def.id]){

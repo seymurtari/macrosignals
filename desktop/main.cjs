@@ -33,7 +33,7 @@ async function refresh(ids){
     const apiKey=await readKey(),mode=store.state.mode;
     for(const id of unique){
       if(controller.signal.aborted)break;
-      const def=catalogue.find(k=>k.id===id);if(!['fred','multpl','ssga'].includes(def.adapter)){errors.push({id,error:'CSV import required; no direct connection.'});done++;continue;}
+      const def=catalogue.find(k=>k.id===id);if(!['fred','multpl','ssga','bundesbank','ecb'].includes(def.adapter)){errors.push({id,error:'CSV import required; no direct connection.'});done++;continue;}
       send({phase:'refresh',id,name:def.name,done,total:unique.length});
       try{const series=await fetchMetric(def,{mode,apiKey,previousSeries:store.cache[id],fetcher:net.fetch,signal:AbortSignal.any([controller.signal,AbortSignal.timeout(55000)])},componentCache);await store.putSeries(id,series);updated.push(id);}
       catch(e){errors.push({id,error:e.message});}

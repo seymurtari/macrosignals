@@ -49,7 +49,7 @@ test('Four-page desktop UI preserves selections, handles refresh errors, renders
  button('Data sources').click();await waitFor(()=>document.querySelectorAll('.source-card').length===sources.length);
  assert.match(document.body.textContent,/does not read Chrome cookies/);
  button('KPI catalogue').click();await waitFor(()=>document.querySelectorAll('.kpi-table .kpi-row').length===catalogue.filter(k=>k.rank>0).length);
- assert.equal(document.querySelectorAll('.group-header').length,9);
+ assert.equal(document.querySelectorAll('.group-header').length,12);
  const firstGroup=document.querySelector('.group-header button');assert.match(firstGroup.textContent,/Rates & monetary policy/);firstGroup.click();await waitFor(()=>document.querySelectorAll('.kpi-table .kpi-row').length===catalogue.filter(k=>k.rank>0).length-7);assert.equal(firstGroup.getAttribute('aria-expanded'),'false');firstGroup.click();await waitFor(()=>document.querySelectorAll('.kpi-table .kpi-row').length===catalogue.filter(k=>k.rank>0).length);
  const category=document.querySelector('select[aria-label="Filter category"]');category.value='housing';category.dispatchEvent(new dom.window.Event('change',{bubbles:true}));await waitFor(()=>document.querySelectorAll('.kpi-table .kpi-row').length===2);assert.match(document.querySelector('.group-header').textContent,/Housing & construction/);category.value='All categories';category.dispatchEvent(new dom.window.Event('change',{bubbles:true}));await waitFor(()=>document.querySelectorAll('.kpi-table .kpi-row').length===catalogue.filter(k=>k.rank>0).length);
  const original=store.state.selected.length;

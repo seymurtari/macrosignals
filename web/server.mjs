@@ -45,7 +45,7 @@ export async function createApp({env=process.env,fetcher=fetch,store:givenStore}
     if(name==='bootstrap'){const snapshot=await store.snapshot();if(snapshot.state.autoRefresh)setTimeout(runAutoRefresh,0).unref();return {catalogue,sources,...snapshot,state:restorePreferences(snapshot.state,defaults),hasKey:!!env.FRED_API_KEY,secureVault:false,warnings:store.warnings,version:'0.2.0-web',platform:'web'};}
     if(name==='save'){const state=await store.update(validatedPatch(arg));if(arg?.autoRefresh)setTimeout(runAutoRefresh,0).unref();return state;}
     if(name==='refresh-one'){
-      const def=catalogue.find(k=>k.id===arg?.id);if(!def||!['fred','multpl','ssga'].includes(def.adapter))throw Error('This KPI requires CSV import.');
+      const def=catalogue.find(k=>k.id===arg?.id);if(!def||!['fred','multpl','ssga','bundesbank','ecb'].includes(def.adapter))throw Error('This KPI requires CSV import.');
       if(inFlight.has(def.id))throw Error('This indicator is already refreshing.');inFlight.add(def.id);
       try{
       const {state,cache}=await store.snapshot();

@@ -1,6 +1,6 @@
 # MacroSignals — desktop and mobile web
 
-A personal workspace for macroeconomic indicators and market-downturn research. The four pages cover data sources, 52 selectable KPIs, trends and correlations, and an analysis lab.
+A personal workspace for macroeconomic indicators and market-downturn research. The four pages cover data sources, 68 selectable KPIs, trends and correlations, and an analysis lab.
 
 ## Host on Replit
 
@@ -30,7 +30,7 @@ The chart lists the actual available observation dates for each plotted KPI. **S
 
 To update, close the old app, extract the new download, and run **MacroSignals-0.1.1-Windows.exe**. The old process must be closed for the new version to start. The source is stored in the private [seymurtari/macrosignals](https://github.com/seymurtari/macrosignals) repository; the executable is a separate download.
 
-The KPI catalogue now uses nine collapsible sections: rates and policy; credit and banking; money and liquidity; employment; inflation; growth and consumer demand; housing; global economy and commodities; and company earnings and equity markets. Research-priority numbers remain unchanged within each section. Group filtering, search and saved selections continue to work. The interface also includes a small-screen layout in preparation for a mobile web edition.
+The KPI catalogue now uses twelve collapsible sections: rates and policy; credit and banking; money and liquidity; employment; inflation; growth and consumer demand; housing; global economy and commodities; company earnings and equity markets; European bonds and credit; European equities; and European policy and stress. Research-priority numbers remain unchanged within each section. Group filtering, search and saved selections continue to work. The interface also includes a small-screen layout in preparation for a mobile web edition.
 
 **Mobile publication:** the browser/server replacement is now implemented in this source. See [docs/Replit-Hosting.md](docs/Replit-Hosting.md) to publish it on Replit. The packaged Windows executable remains version 0.1.1.
 
@@ -39,7 +39,7 @@ The KPI catalogue now uses nine collapsible sections: rates and policy; credit a
 | Page | Working features |
 |---|---|
 | Data sources | Ten free/paid source groups, annual costs or quote requirement, billing qualifications, official links, saved membership notes, and Chrome/API access distinctions. |
-| KPI catalogue | All 52 research candidates, nine logical groups, priority order within groups, category/search filters, persistent selections, named watchlists, native units, last observation, source provenance, CSV import/export. |
+| KPI catalogue | All 68 research candidates, twelve logical groups, priority order within groups, category/search filters, persistent selections, named watchlists, native units, last observation, source provenance, CSV import/export. |
 | Trends & links | Cached-data cards, up to five overlaid series, 1/3/5/10/20-year windows, standardization or explicit changes, correlation heatmap, source coverage, offline access and a dark theme. |
 | Analysis lab | Pearson/Spearman correlations, selected calendar leads/lags, 36-month rolling relationships, expanding-window logistic-regression backtests, a frozen 24-month holdout, calibration and baseline comparisons, persistent threshold rules, bond-duration scenarios, historical factor sensitivity, and Fed rate-change event studies. |
 
@@ -120,3 +120,7 @@ See [docs/Methodology.md](docs/Methodology.md) for calculation definitions and [
 ### Automatic S&P 500 valuation updates
 
 Select **S&P 500 trailing P/E ratio** and **S&P 500 price-to-cash-flow ratio**, load their data, then enable **Automatically refresh selected data while the app is running** in Settings. No API key is required. P/E loads Multpl monthly history plus its latest estimate; price-to-cash-flow reads State Street index characteristics and accumulates snapshots from the first refresh. There is no price-to-cash-flow historical backfill. Public-page changes may interrupt refresh; existing cached data and imported histories are preserved. The web server must be running to refresh. Pull these changes into Replit and republish before using them on the hosted app.
+
+### European market KPIs
+
+Indicators 53–68 cover European bonds, equities, policy and stress. Seven have public automatic connections (Bundesbank, ECB or FRED); nine require entitled CSV imports. Italy/France sovereign spreads and the UK yield are monthly, not live quotes. Select indicators in the catalogue and enable automatic refresh in Settings. Existing selections are preserved. See docs/KPI-Catalogue.md for definitions.

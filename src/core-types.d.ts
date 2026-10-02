@@ -16,3 +16,5 @@ declare module '*.mjs' {
  export function eventStudy(rates:any[],market:any[]):any[];
 }
 declare module '*.css';
+
+declare module '*europe.mjs' { export function marketPerformance(points?:{date:string;value:number}[]):{label:string;value:number|null}[]; }

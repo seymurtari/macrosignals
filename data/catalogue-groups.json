@@ -1,11 +1,154 @@
 [
- {"id":"rates","name":"Rates & monetary policy","description":"The yield curve, real yields and the Federal Reserve's policy stance.","ids":["1","6","10","11","12","13","14"]},
- {"id":"credit","name":"Credit & banking","description":"Borrowing conditions, credit risk, lending standards and loan performance.","ids":["2","4","7","20","21","22","23"]},
- {"id":"liquidity","name":"Money & liquidity","description":"Central-bank assets, bank reserves, Treasury cash and money supply.","ids":["15","16","17","18","19"]},
- {"id":"employment","name":"Employment & labour market","description":"Claims, hiring, hours worked and the balance between jobs and jobseekers.","ids":["3","9","24","25","26","27","28"]},
- {"id":"inflation","name":"Inflation & expectations","description":"Consumer inflation and the market's longer-term inflation expectations.","ids":["29","30","31"]},
- {"id":"growth","name":"Growth & consumer demand","description":"Business activity, production, spending, income and consumer expectations.","ids":["5","32","33","34","35","36","39"]},
- {"id":"housing","name":"Housing & construction","description":"Building permits and housing starts as indicators of construction demand.","ids":["37","38"]},
- {"id":"global","name":"Global economy & commodities","description":"Global leading indicators, oil, copper, the dollar and supply-chain pressure.","ids":["40","41","42","43","44","45"]},
- {"id":"earnings","name":"Company earnings & equity markets","description":"Earnings expectations and results, margins, equity valuations, breadth and volatility.","ids":["8","46","47","48","49","50","51","52"]}
+  {
+    "id": "rates",
+    "name": "Rates & monetary policy",
+    "description": "The yield curve, real yields and the Federal Reserve's policy stance.",
+    "ids": [
+      "1",
+      "6",
+      "10",
+      "11",
+      "12",
+      "13",
+      "14"
+    ]
+  },
+  {
+    "id": "credit",
+    "name": "Credit & banking",
+    "description": "Borrowing conditions, credit risk, lending standards and loan performance.",
+    "ids": [
+      "2",
+      "4",
+      "7",
+      "20",
+      "21",
+      "22",
+      "23"
+    ]
+  },
+  {
+    "id": "liquidity",
+    "name": "Money & liquidity",
+    "description": "Central-bank assets, bank reserves, Treasury cash and money supply.",
+    "ids": [
+      "15",
+      "16",
+      "17",
+      "18",
+      "19"
+    ]
+  },
+  {
+    "id": "employment",
+    "name": "Employment & labour market",
+    "description": "Claims, hiring, hours worked and the balance between jobs and jobseekers.",
+    "ids": [
+      "3",
+      "9",
+      "24",
+      "25",
+      "26",
+      "27",
+      "28"
+    ]
+  },
+  {
+    "id": "inflation",
+    "name": "Inflation & expectations",
+    "description": "Consumer inflation and the market's longer-term inflation expectations.",
+    "ids": [
+      "29",
+      "30",
+      "31"
+    ]
+  },
+  {
+    "id": "growth",
+    "name": "Growth & consumer demand",
+    "description": "Business activity, production, spending, income and consumer expectations.",
+    "ids": [
+      "5",
+      "32",
+      "33",
+      "34",
+      "35",
+      "36",
+      "39"
+    ]
+  },
+  {
+    "id": "housing",
+    "name": "Housing & construction",
+    "description": "Building permits and housing starts as indicators of construction demand.",
+    "ids": [
+      "37",
+      "38"
+    ]
+  },
+  {
+    "id": "global",
+    "name": "Global economy & commodities",
+    "description": "Global leading indicators, oil, copper, the dollar and supply-chain pressure.",
+    "ids": [
+      "40",
+      "41",
+      "42",
+      "43",
+      "44",
+      "45"
+    ]
+  },
+  {
+    "id": "earnings",
+    "name": "Company earnings & equity markets",
+    "description": "Earnings expectations and results, margins, equity valuations, breadth and volatility.",
+    "ids": [
+      "8",
+      "46",
+      "47",
+      "48",
+      "49",
+      "50",
+      "51",
+      "52"
+    ]
+  },
+  {
+    "id": "europe-bonds",
+    "name": "European bonds & credit",
+    "description": "German and UK yields, sovereign spreads, euro corporate credit and bond returns.",
+    "ids": [
+      "53",
+      "54",
+      "55",
+      "56",
+      "57",
+      "58",
+      "65",
+      "68"
+    ]
+  },
+  {
+    "id": "europe-equities",
+    "name": "European equities",
+    "description": "European total returns, volatility, breadth, bank leadership, earnings and valuation.",
+    "ids": [
+      "59",
+      "60",
+      "61",
+      "62",
+      "63",
+      "66"
+    ]
+  },
+  {
+    "id": "europe-policy",
+    "name": "European policy & stress",
+    "description": "Euro-area systemic stress and market-implied monetary policy.",
+    "ids": [
+      "64",
+      "67"
+    ]
+  }
 ]

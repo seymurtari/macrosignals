@@ -25,7 +25,7 @@
   },
   {
     "id": "agencies",
-    "name": "BLS \u00b7 BEA \u00b7 Census \u00b7 Fed",
+    "name": "BLS · BEA · Census · Fed",
     "kind": "free",
     "annualCost": "$0",
     "coverage": "Employment, inflation, growth, housing, monetary policy",
@@ -61,7 +61,7 @@
   },
   {
     "id": "global",
-    "name": "OECD \u00b7 World Bank \u00b7 IMF",
+    "name": "OECD · World Bank · IMF",
     "kind": "free",
     "annualCost": "$0",
     "coverage": "Global cycle and commodities",
@@ -123,7 +123,7 @@
     "id": "tv",
     "name": "TradingView",
     "kind": "browser",
-    "annualCost": "\u20ac0 / \u20ac155.40 / \u20ac359.40 / \u20ac719.40",
+    "annualCost": "€0 / €155.40 / €359.40 / €719.40",
     "coverage": "Basic / Essential / Plus / Premium",
     "integration": "Research and permitted CSV exports",
     "chrome": "Conditional Chrome access after sign-in",
@@ -133,7 +133,7 @@
   },
   {
     "id": "multpl",
-    "name": "Multpl \u2014 S&P 500 valuations",
+    "name": "Multpl — S&P 500 valuations",
     "kind": "browser",
     "annualCost": "$0 public viewing; export entitlement unverified",
     "coverage": "Trailing as-reported P/E charts and historical tables",
@@ -145,7 +145,7 @@
   },
   {
     "id": "ssga-index",
-    "name": "State Street \u2014 S&P 500 index characteristics",
+    "name": "State Street — S&P 500 index characteristics",
     "kind": "browser",
     "annualCost": "$0 public viewing; historical data cost unverified",
     "coverage": "S&P 500 index Price/Cash Flow and Price/Earnings snapshots",
@@ -154,5 +154,41 @@
     "url": "https://www.ssga.com/us/en/individual/etfs/state-street-spdr-sp-500-etf-trust-spy",
     "note": "No API key required. Accumulates dated snapshots from first connection; no historical backfill. Uses Index Characteristics, not fund statistics. Public page changes or access restrictions can interrupt refresh.",
     "priceDate": "2026-09-15"
+  },
+  {
+    "id": "bundesbank",
+    "name": "Deutsche Bundesbank",
+    "kind": "free",
+    "annualCost": "$0",
+    "coverage": "Daily German benchmark yields and 10Y–2Y spread",
+    "integration": "Built in: official SDMX CSV",
+    "chrome": "No browser membership access required",
+    "url": "https://www.bundesbank.de/en/statistics/money-and-capital-markets/interest-rates-and-yields/daily-yields-of-current-federal-securities-772220",
+    "note": "Actual history and permitted use depend on the series; no fabricated backfill.",
+    "priceDate": "2026-10-02"
+  },
+  {
+    "id": "ecb",
+    "name": "European Central Bank",
+    "kind": "free",
+    "annualCost": "$0",
+    "coverage": "Euro-area NEW CISS daily systemic stress",
+    "integration": "Built in: official SDMX CSV",
+    "chrome": "No browser membership access required",
+    "url": "https://data.ecb.europa.eu/data/datasets/CISS/CISS.D.U2.Z0Z.4F.EC.SS_CIN.IDX",
+    "note": "Actual history and permitted use depend on the series; no fabricated backfill.",
+    "priceDate": "2026-10-02"
+  },
+  {
+    "id": "europe-licensed",
+    "name": "European market data / licensed feeds",
+    "kind": "paid",
+    "annualCost": "Provider quote; not included",
+    "coverage": "European indices, breadth, consensus, OIS and bond returns",
+    "integration": "CSV import; no subscription or API entitlement included",
+    "chrome": "Browser subscription does not grant API rights",
+    "url": "https://stoxx.com/",
+    "note": "Actual history and permitted use depend on the series; no fabricated backfill.",
+    "priceDate": "2026-10-02"
   }
 ]

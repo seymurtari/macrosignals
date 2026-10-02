@@ -1,6 +1,6 @@
 # KPI catalogue
 
-52 research candidates. Priority order is a starting hypothesis, not a proven ranking. Connected series use FRED for history; five Treasury rate indicators use the U.S. Treasury feed for recent observations. Imports must already match the displayed definition and units. Two additional series are used exclusively as the market benchmark and retrospective recession outcome. [Treasury daily feed documentation](https://home.treasury.gov/treasury-daily-interest-rate-xml-feed).
+68 research candidates. Priority order is a starting hypothesis, not a proven ranking. Most connected series use FRED for history; European German yields and CISS use Bundesbank and ECB; five Treasury rate indicators use the U.S. Treasury feed for recent observations. Imports must already match the displayed definition and units. Two additional series are used exclusively as the market benchmark and retrospective recession outcome. [Treasury daily feed documentation](https://home.treasury.gov/treasury-daily-interest-rate-xml-feed).
 
 ## Rates & monetary policy
 
@@ -546,3 +546,44 @@ Select both under Company earnings & equity markets. Use Refresh in the indicato
 The adapters read public HTML pages, validate the ratio and source observation date, and retain cached data on blocked requests, missing values, stale responses or format changes. Imported histories are preserved. Cash-flow observations with the same source date are updated, not duplicated. Missing historical periods are not fabricated.
 
 Keep the same provider and methodology across a series. Trailing P/E differs from forward P/E and CAPE. Cash flow differs from free cash flow; the cash-flow series uses the provider's index aggregation. Valuation series remain labeled revised even when FRED retrieval is set to first-release mode. They cannot qualify as first-release predictors. High valuations alone do not establish when a downturn will occur.
+
+## European bonds & credit
+
+German and UK yields, sovereign spreads, euro corporate credit and bond returns.
+
+| # | Indicator | Frequency | Units | Route |
+|---|---|---|---|---|
+| 53 | German 10-year Bund yield | daily | percent | Deutsche Bundesbank |
+| 54 | German 10Y–2Y yield spread | daily | basis points | Deutsche Bundesbank |
+| 55 | Italy–Germany 10-year yield spread | monthly | basis points | OECD via FRED |
+| 56 | France–Germany 10-year yield spread | monthly | basis points | OECD via FRED |
+| 57 | Euro high-yield option-adjusted spread | daily | percentage points | ICE Data Indices via FRED |
+| 58 | UK 10-year gilt yield | monthly | percent | OECD via FRED |
+| 65 | Euro investment-grade option-adjusted spread | daily | basis points | Licensed CSV import |
+| 68 | Euro-area government bond total return | daily | total-return index | Licensed CSV import |
+
+## European equities
+
+European total returns, volatility, breadth, bank leadership, earnings and valuation.
+
+| # | Indicator | Frequency | Units | Route |
+|---|---|---|---|---|
+| 59 | STOXX Europe 600 total return and drawdown | daily | total-return index | Licensed CSV import |
+| 60 | VSTOXX equity volatility index | daily | annualized volatility (%) | Licensed CSV import |
+| 61 | European equity breadth: share above 200-day average | daily | percent | Licensed CSV import |
+| 62 | European banks relative performance | daily | relative total-return index | Licensed CSV import |
+| 63 | European forward EPS revision breadth | monthly | percentage points | Licensed CSV import |
+| 66 | European forward P/E ratio | monthly | multiple (x) | Licensed CSV import |
+
+## European policy & stress
+
+Euro-area systemic stress and market-implied monetary policy.
+
+| # | Indicator | Frequency | Units | Route |
+|---|---|---|---|---|
+| 64 | ECB Composite Indicator of Systemic Stress (CISS) | daily | index (0–1) | European Central Bank |
+| 67 | ECB 12-month implied policy-rate change | daily | basis points | Licensed CSV import |
+
+European imports must match the definitions and units in each detail card. Equity and bond index performance uses total-return indices in EUR; do not replace them with price indices or unadjusted ETF prices. First-release mode rejects direct ECB/Bundesbank revised histories. Sovereign spreads use matching monthly OECD observations. Euro high-yield FRED history is currently limited to roughly three years. No history is fabricated to reach 20 years.
+
+Live connections verified on 2026-10-02: Bund and CISS returned 20 years; matching German 10Y–2Y history began 2014-01-02; OECD sovereign spreads and UK yields returned monthly history through August 2026; euro high-yield history began 2023-10-02.

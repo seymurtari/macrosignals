@@ -7,14 +7,14 @@ export function monthKey(n) { return `${Math.floor(n/12)}-${String(n%12+1).padSt
 export function monthEnd(n) { return new Date(Date.UTC(Math.floor(n/12),n%12+1,0)).toISOString().slice(0,10); }
 
 // Small RFC4180 parser. Missing numbers remain missing; they never become zero.
-export function csvRows(text) {
+export function csvRows(text, delimiter=',') {
   if (typeof text !== 'string' || text.length > 12_000_000) throw Error('CSV must be smaller than 12 MB.');
   const rows=[]; let row=[],field='',quoted=false;
   const s=text.replace(/^\uFEFF/,'');
   for(let i=0;i<s.length;i++) {
     const c=s[i];
     if(c==='"') { if(quoted && s[i+1]==='"'){field+='"';i++;} else if(!quoted && field!=='')throw Error('Unexpected quote in CSV.');else quoted=!quoted; }
-    else if(c===','&&!quoted){row.push(field);field='';}
+    else if(c===delimiter&&!quoted){row.push(field);field='';}
     else if((c==='\n'||c==='\r')&&!quoted){if(c==='\r'&&s[i+1]==='\n')i++;row.push(field);if(row.some(x=>x.trim()))rows.push(row);field='';row=[];}
     else field+=c;
   }
@@ -53,9 +53,9 @@ export function deriveMetric(def,components) {
   const first=components[0]||[];
   if(def.transform==='level')return first.map(x=>({...x}));
   const maps=components.map(a=>new Map(a.map(x=>[x.date,x])));
-  if(['midpoint','ratio'].includes(def.transform))return first.flatMap(p=>{
+  if(['midpoint','ratio','spreadBp'].includes(def.transform))return first.flatMap(p=>{
     const b=maps[1]?.get(p.date);if(!b||(def.transform==='ratio'&&b.value===0))return [];
-    return [{date:p.date,value:def.transform==='ratio'?p.value/b.value:(p.value+b.value)/2,availableDate:availability([p,b])}];
+    return [{date:p.date,value:def.transform==='spreadBp'?(p.value-b.value)*100:def.transform==='ratio'?p.value/b.value:(p.value+b.value)/2,availableDate:availability([p,b])}];
   });
   const byMonth=new Map(first.map(x=>[monthIndex(x.date),x]));
   return first.flatMap((p,i)=>{
