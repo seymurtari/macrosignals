@@ -12,11 +12,11 @@ export function createFmpKpis({apiKey='',fetcher=fetch,now=Date.now}={}){
    if(!apiKey.trim())throw Error('FMP_API_KEY is not configured on this server.');
    if(now()<blockedUntil)throw Error('FMP authentication or rate limit pause; retry tomorrow.');
    const url=new URL('https://financialmodelingprep.com/stable/'+paths[kind]);url.searchParams.set('symbol',symbol);
-   if(kind==='prices'){const start=new Date(now());start.setUTCFullYear(start.getUTCFullYear()-21);url.searchParams.set('from',start.toISOString().slice(0,10));url.searchParams.set('to',new Date(now()).toISOString().slice(0,10));}
-   else{url.searchParams.set('period','annual');url.searchParams.set('limit',kind==='estimates'?'5':'20');}
+   if(kind==='prices'){const start=new Date(now());start.setUTCFullYear(start.getUTCFullYear()-5);url.searchParams.set('from',start.toISOString().slice(0,10));url.searchParams.set('to',new Date(now()).toISOString().slice(0,10));}
+   else{url.searchParams.set('period','annual');url.searchParams.set('limit','5');}
    const response=await fetcher(url.toString(),{headers:{apikey:apiKey.trim(),Accept:'application/json'},redirect:'error',signal:AbortSignal.timeout(12000)});
    if([401,429].includes(response.status))blockedUntil=now()+86400000;
-   if(!response.ok)throw Error([402,403].includes(response.status)?'FMP access restricted for this symbol or endpoint.':response.status===429?'FMP daily allowance reached.':response.status===401?'FMP rejected the API key.':'FMP provider request failed.');
+   if(!response.ok)throw Error([402,403].includes(response.status)?'FMP access restricted for this symbol or endpoint.':response.status===429?'FMP request rate or allowance reached.':response.status===401?'FMP rejected the API key.':'FMP provider request failed.');
    let text='',bytes=0;const reader=response.body.getReader(),decoder=new TextDecoder();
    while(true){const {done,value}=await reader.read();if(done)break;bytes+=value.length;if(bytes>4000000){await reader.cancel();throw Error('FMP response too large.');}text+=decoder.decode(value,{stream:true});}text+=decoder.decode();
    let payload;try{payload=JSON.parse(text);}catch{throw Error('FMP returned invalid JSON.');}
@@ -69,7 +69,7 @@ export function createFmpKpis({apiKey='',fetcher=fetch,now=Date.now}={}){
     if(metric==='cashConversion'&&matching&&numeric(c.operatingCashFlow)&&numeric(r.netIncome)&&r.netIncome>0)value=c.operatingCashFlow/r.netIncome;
     add(r.date,value);
    }
-   note='Annual fiscal periods, latest revised statements. Up to 20 rows requested; entitlement may shorten coverage. Matched dates/currencies for cross-statement ratios. Invalid or missing fields, nonpositive growth bases and loss transitions are omitted.';
+   note='Annual fiscal periods, latest revised statements. Up to 5 annual rows requested (Starter); entitlement may shorten coverage. Matched dates/currencies for cross-statement ratios. Invalid or missing fields, nonpositive growth bases and loss transitions are omitted.';
   }
   const cutoff=new Date(now());cutoff.setUTCFullYear(cutoff.getUTCFullYear()-20);observations=observations.filter(p=>p.date>=cutoff.toISOString().slice(0,10));
   const status=observations.length?'available':revision?'collecting':'insufficient';
