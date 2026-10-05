@@ -87,12 +87,12 @@
     "id": "fmp",
     "name": "Financial Modeling Prep (FMP)",
     "kind": "paid",
-    "annualCost": "Starter $228 · Premium $588 · Ultimate $1,188",
-    "coverage": "Company earnings and estimates, cash flow, valuations, market breadth inputs, sector performance and Treasury rates",
-    "integration": "API connection pending. Store your key as FMP_API_KEY in Replit Secrets; automatic retrieval is not connected yet.",
-    "chrome": "Use your existing API subscription directly once connected; Chrome sign-in is not required for API access.",
+    "annualCost": "Starter: $228 list price",
+    "coverage": "Your plan: Starter — US historical stock prices, annual company fundamentals and ratios; up to 5 years of available history",
+    "integration": "Subscribed; key saved in Replit Secrets (user confirmed). FMP adapter and API validation are pending.",
+    "chrome": "API key authentication; Chrome sign-in is not needed. Server secret: FMP_API_KEY.",
     "url": "https://site.financialmodelingprep.com/developer/docs/pricing",
-    "note": "Annual-billing list prices checked 5 Oct 2026; your invoice may differ. Plan not yet confirmed. Starter: up to 5 years, US; Premium: up to 30 years, adds UK/Canada; Ultimate: global. Endpoint access, history and display rights must be verified. Never put API keys in GitHub or CSV files.",
+    "note": "Starter confirmed 5 Oct 2026. Published price: $19/month billed annually ($228/year); your invoice may differ. Keep existing longer-history providers for 20-year charts. Advanced endpoints and display rights require confirmation. Saving the key alone does not enable refresh.",
     "priceDate": "2026-10-05"
   },
   {
