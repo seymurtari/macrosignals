@@ -89,7 +89,7 @@
     "kind": "paid",
     "annualCost": "$264 / year (Starter, advertised annual billing)",
     "coverage": "Starter: US coverage, annual fundamentals and ratios, historical stock prices, up to 5 years; endpoint and symbol access validated separately.",
-    "integration": "54 company KPIs available in the web catalogue. Select indicators and refresh to validate each symbol; estimates accumulate saved snapshots.",
+    "integration": "102 company KPIs plus one six-company breadth indicator available in the web catalogue. Select indicators and refresh to validate each symbol; estimates accumulate saved snapshots.",
     "chrome": "API key authentication; Chrome sign-in is not required. Server secret: FMP_API_KEY.",
     "url": "https://site.financialmodelingprep.com/developer/docs/pricing",
     "note": "User reports Starter subscription. Public price checked 5 Oct 2026: $22/month billed annually; actual invoice may differ. 300 API calls/minute; 20 GB trailing 30-day bandwidth. Existing access check tests six AAPL datasets only. Company KPI loader requests five years / five annual statements. Other endpoints and symbols require separate validation.",

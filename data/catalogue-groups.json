@@ -164,7 +164,15 @@
       "fmp-aapl-incomeGrowth",
       "fmp-aapl-cashConversion",
       "fmp-aapl-drawdown",
-      "fmp-aapl-volatility"
+      "fmp-aapl-volatility",
+      "fmp-aapl-operatingMarginChange",
+      "fmp-aapl-grossMarginChange",
+      "fmp-aapl-interestCoverage",
+      "fmp-aapl-netDebtEbitda",
+      "fmp-aapl-inventoryGap",
+      "fmp-aapl-receivablesGap",
+      "fmp-aapl-capexCash",
+      "fmp-aapl-priceFcf"
     ]
   },
   {
@@ -180,7 +188,15 @@
       "fmp-nvda-incomeGrowth",
       "fmp-nvda-cashConversion",
       "fmp-nvda-drawdown",
-      "fmp-nvda-volatility"
+      "fmp-nvda-volatility",
+      "fmp-nvda-operatingMarginChange",
+      "fmp-nvda-grossMarginChange",
+      "fmp-nvda-interestCoverage",
+      "fmp-nvda-netDebtEbitda",
+      "fmp-nvda-inventoryGap",
+      "fmp-nvda-receivablesGap",
+      "fmp-nvda-capexCash",
+      "fmp-nvda-priceFcf"
     ]
   },
   {
@@ -196,7 +212,15 @@
       "fmp-goog-incomeGrowth",
       "fmp-goog-cashConversion",
       "fmp-goog-drawdown",
-      "fmp-goog-volatility"
+      "fmp-goog-volatility",
+      "fmp-goog-operatingMarginChange",
+      "fmp-goog-grossMarginChange",
+      "fmp-goog-interestCoverage",
+      "fmp-goog-netDebtEbitda",
+      "fmp-goog-inventoryGap",
+      "fmp-goog-receivablesGap",
+      "fmp-goog-capexCash",
+      "fmp-goog-priceFcf"
     ]
   },
   {
@@ -212,7 +236,15 @@
       "fmp-brk-a-incomeGrowth",
       "fmp-brk-a-cashConversion",
       "fmp-brk-a-drawdown",
-      "fmp-brk-a-volatility"
+      "fmp-brk-a-volatility",
+      "fmp-brk-a-operatingMarginChange",
+      "fmp-brk-a-grossMarginChange",
+      "fmp-brk-a-interestCoverage",
+      "fmp-brk-a-netDebtEbitda",
+      "fmp-brk-a-inventoryGap",
+      "fmp-brk-a-receivablesGap",
+      "fmp-brk-a-capexCash",
+      "fmp-brk-a-priceFcf"
     ]
   },
   {
@@ -228,7 +260,15 @@
       "fmp-asml-incomeGrowth",
       "fmp-asml-cashConversion",
       "fmp-asml-drawdown",
-      "fmp-asml-volatility"
+      "fmp-asml-volatility",
+      "fmp-asml-operatingMarginChange",
+      "fmp-asml-grossMarginChange",
+      "fmp-asml-interestCoverage",
+      "fmp-asml-netDebtEbitda",
+      "fmp-asml-inventoryGap",
+      "fmp-asml-receivablesGap",
+      "fmp-asml-capexCash",
+      "fmp-asml-priceFcf"
     ]
   },
   {
@@ -244,7 +284,23 @@
       "fmp-tsm-incomeGrowth",
       "fmp-tsm-cashConversion",
       "fmp-tsm-drawdown",
-      "fmp-tsm-volatility"
+      "fmp-tsm-volatility",
+      "fmp-tsm-operatingMarginChange",
+      "fmp-tsm-grossMarginChange",
+      "fmp-tsm-interestCoverage",
+      "fmp-tsm-netDebtEbitda",
+      "fmp-tsm-inventoryGap",
+      "fmp-tsm-receivablesGap",
+      "fmp-tsm-capexCash",
+      "fmp-tsm-priceFcf"
+    ]
+  },
+  {
+    "id": "fmp-basket",
+    "name": "Selected-company basket",
+    "description": "Fixed six-company breadth; not a market-wide index.",
+    "ids": [
+      "fmp-basket-breadth"
     ]
   }
 ]

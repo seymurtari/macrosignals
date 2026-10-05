@@ -34,9 +34,9 @@ test('restricted responses never expose provider text; rate limit stops other sy
  await assert.rejects(r.fetchMetric(def('netMargin')));await assert.rejects(r.fetchMetric(def('netMargin','ASML')));assert.equal(calls,1);
  await assert.rejects(c.fetchMetric(def('netMargin'),{mode:'firstRelease'}),/first-release/);
 });
-test('catalogue has exactly nine requested metrics for each company and each is grouped',async()=>{
+test('catalogue has all requested metrics for each company and each is grouped',async()=>{
  const {readFile}=await import('node:fs/promises');const catalogue=JSON.parse(await readFile(new URL('../data/catalogue.json',import.meta.url))),groups=JSON.parse(await readFile(new URL('../data/catalogue-groups.json',import.meta.url)));
- const entries=catalogue.filter(k=>k.adapter==='fmp');assert.equal(entries.length,54);for(const symbol of ['AAPL','NVDA','GOOG','BRK.A','ASML','TSM'])assert.equal(entries.filter(k=>k.symbol===symbol).length,9);for(const k of entries)assert.equal(groups.filter(g=>g.ids.includes(k.id)).length,1);
+ const entries=catalogue.filter(k=>k.adapter==='fmp');assert.equal(entries.length,103);for(const symbol of ['AAPL','NVDA','GOOG','BRK.A','ASML','TSM'])assert.equal(entries.filter(k=>k.symbol===symbol).length,17);for(const k of entries)assert.equal(groups.filter(g=>g.ids.includes(k.id)).length,1);
 });
 test('empty EPS baseline and unavailable status survive local store restart',async()=>{
  const {LocalStore}=await import('../core/storage.cjs');const {mkdtemp,rm}=await import('node:fs/promises');const {tmpdir}=await import('node:os');const dir=await mkdtemp(tmpdir()+'/fmp-persist-');

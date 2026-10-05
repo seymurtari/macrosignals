@@ -1,8 +1,9 @@
+import {EXTRA_METRICS,fetchFmpExtra} from './fmp-extra.mjs';
 import {validDate} from './series.mjs';
 export const FMP_SYMBOLS=['AAPL','NVDA','GOOG','BRK.A','ASML','TSM'];
 const numeric=x=>typeof x==='number'&&Number.isFinite(x);
-const paths={prices:'historical-price-eod/light',income:'income-statement',cash:'cash-flow-statement',estimates:'analyst-estimates'};
-const fields={prices:['price'],income:['revenue','netIncome'],cash:['operatingCashFlow','freeCashFlow'],estimates:['epsAvg']};
+const paths={prices:'historical-price-eod/light',income:'income-statement',cash:'cash-flow-statement',estimates:'analyst-estimates',balance:'balance-sheet-statement',ratios:'ratios'};
+const fields={prices:['price'],income:['revenue','netIncome','operatingIncome','grossProfit','ebit','ebitda'],cash:['operatingCashFlow','freeCashFlow'],estimates:['epsAvg'],balance:['netDebt','inventory','netReceivables'],ratios:['priceToFreeCashFlowRatio']};
 export function createFmpKpis({apiKey='',fetcher=fetch,now=Date.now}={}){
  const cache=new Map();let blockedUntil=0;
  async function dataset(symbol,kind){
@@ -29,8 +30,9 @@ export function createFmpKpis({apiKey='',fetcher=fetch,now=Date.now}={}){
   cache.set(key,{until:now()+86400000,promise});return promise;
  }
  async function fetchMetric(def,{previousSeries,mode='latest'}={}){
-  if(!FMP_SYMBOLS.includes(def.symbol))throw Error('Unsupported FMP symbol.');
+  if(def.fmpMetric!=='basketBreadth'&&!FMP_SYMBOLS.includes(def.symbol))throw Error('Unsupported FMP symbol.');
   if(mode==='firstRelease')throw Error('FMP KPIs require current/revised history mode; first-release history is not verified.');
+  if(EXTRA_METRICS.includes(def.fmpMetric))return fetchFmpExtra(def,dataset,FMP_SYMBOLS,now);
   const metric=def.fmpMetric,prices=['ma200','drawdown','volatility'].includes(metric),revision=metric==='epsRevision';
   const input=await dataset(def.symbol,prices?'prices':revision?'estimates':'income');
   const rows=input.rows;let observations=[],missing=input.rejected,snapshots=previousSeries?.fmpSnapshots||[],note='';
