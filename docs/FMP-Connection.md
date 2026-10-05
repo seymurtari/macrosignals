@@ -33,3 +33,7 @@ Prices are the first candidates if accessible. Statements and estimates remain c
 ## Validation
 
 Connection tests use simulated provider responses for successful, restricted, invalid-key, empty, malformed, network-error and rate-limit cases. They verify request authentication, secret redaction, response summaries and one-hour request reuse. Real account entitlements have not been tested from the development environment; the Sources-page check performs that test in your deployment.
+
+## Company KPI integration update
+
+The catalogue now contains 54 FMP company metrics. See [FMP-KPIs.md](FMP-KPIs.md) for calculations, actual-coverage labels, deployment and limitations. Earlier descriptions above of connection-only functionality describe the initial release and are superseded by this integration.

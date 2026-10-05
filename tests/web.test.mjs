@@ -53,7 +53,7 @@ test('Web authentication protects assets and data; imports/settings survive rest
   const wait=async fn=>{for(let n=0;n<100;n++){if(fn())return;await new Promise(r=>setTimeout(r,20));}assert.fail('Web UI did not render');};
   await wait(()=>[...dom.window.document.querySelectorAll('button')].some(b=>b.textContent.trim()==='KPI catalogue'));
   const button=text=>[...dom.window.document.querySelectorAll('button')].find(b=>b.textContent.trim()===text);
-  button('KPI catalogue').click();await wait(()=>dom.window.document.querySelectorAll('.group-header').length===12);
+  button('KPI catalogue').click();await wait(()=>dom.window.document.querySelectorAll('.group-header').length===18);
   button('Settings & backup').click();await wait(()=>dom.window.document.querySelector('form[action="/logout"]'));
   assert.match(dom.window.document.body.textContent,/Manage FRED_API_KEY in Replit Secrets/);
   assert.ok(!dom.window.document.querySelector('input[placeholder="32-character key"]'));

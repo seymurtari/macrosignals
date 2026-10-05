@@ -89,7 +89,7 @@
     "kind": "free",
     "annualCost": "$0 (Basic / Free)",
     "coverage": "Free-plan access to end-of-day historical data and company profiles/reference data; endpoint, symbol and history restrictions apply",
-    "integration": "Server API connection available: use Check FMP connection & access below. KPI retrieval is not yet scheduled.",
+    "integration": "54 company KPIs available in the web catalogue. Select indicators and refresh to validate each symbol; estimates accumulate saved snapshots.",
     "chrome": "API key authentication; Chrome sign-in is not required. Server secret: FMP_API_KEY.",
     "url": "https://site.financialmodelingprep.com/developer/docs/pricing",
     "note": "Free plan: 250 calls/day and 500 MB per trailing 30 days. Connection check probes six AAPL datasets and reports real permissions; other symbols may differ. Prices, fundamentals and estimates are not assumed available. Use FMP_API_KEY in deployment Secrets. Desktop edition: this connection check is available in the web app.",

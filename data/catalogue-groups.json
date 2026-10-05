@@ -150,5 +150,101 @@
       "64",
       "67"
     ]
+  },
+  {
+    "id": "fmp-aapl",
+    "name": "AAPL · company indicators",
+    "description": "FMP: annual fundamentals, price trends and saved estimate revisions. Access checked on refresh.",
+    "ids": [
+      "fmp-aapl-revenueGrowth",
+      "fmp-aapl-netMargin",
+      "fmp-aapl-fcfMargin",
+      "fmp-aapl-ma200",
+      "fmp-aapl-epsRevision",
+      "fmp-aapl-incomeGrowth",
+      "fmp-aapl-cashConversion",
+      "fmp-aapl-drawdown",
+      "fmp-aapl-volatility"
+    ]
+  },
+  {
+    "id": "fmp-nvda",
+    "name": "NVDA · company indicators",
+    "description": "FMP: annual fundamentals, price trends and saved estimate revisions. Access checked on refresh.",
+    "ids": [
+      "fmp-nvda-revenueGrowth",
+      "fmp-nvda-netMargin",
+      "fmp-nvda-fcfMargin",
+      "fmp-nvda-ma200",
+      "fmp-nvda-epsRevision",
+      "fmp-nvda-incomeGrowth",
+      "fmp-nvda-cashConversion",
+      "fmp-nvda-drawdown",
+      "fmp-nvda-volatility"
+    ]
+  },
+  {
+    "id": "fmp-goog",
+    "name": "GOOG · company indicators",
+    "description": "FMP: annual fundamentals, price trends and saved estimate revisions. Access checked on refresh.",
+    "ids": [
+      "fmp-goog-revenueGrowth",
+      "fmp-goog-netMargin",
+      "fmp-goog-fcfMargin",
+      "fmp-goog-ma200",
+      "fmp-goog-epsRevision",
+      "fmp-goog-incomeGrowth",
+      "fmp-goog-cashConversion",
+      "fmp-goog-drawdown",
+      "fmp-goog-volatility"
+    ]
+  },
+  {
+    "id": "fmp-brk-a",
+    "name": "BRK.A · company indicators",
+    "description": "FMP: annual fundamentals, price trends and saved estimate revisions. Access checked on refresh.",
+    "ids": [
+      "fmp-brk-a-revenueGrowth",
+      "fmp-brk-a-netMargin",
+      "fmp-brk-a-fcfMargin",
+      "fmp-brk-a-ma200",
+      "fmp-brk-a-epsRevision",
+      "fmp-brk-a-incomeGrowth",
+      "fmp-brk-a-cashConversion",
+      "fmp-brk-a-drawdown",
+      "fmp-brk-a-volatility"
+    ]
+  },
+  {
+    "id": "fmp-asml",
+    "name": "ASML · company indicators",
+    "description": "FMP: annual fundamentals, price trends and saved estimate revisions. Access checked on refresh.",
+    "ids": [
+      "fmp-asml-revenueGrowth",
+      "fmp-asml-netMargin",
+      "fmp-asml-fcfMargin",
+      "fmp-asml-ma200",
+      "fmp-asml-epsRevision",
+      "fmp-asml-incomeGrowth",
+      "fmp-asml-cashConversion",
+      "fmp-asml-drawdown",
+      "fmp-asml-volatility"
+    ]
+  },
+  {
+    "id": "fmp-tsm",
+    "name": "TSM · company indicators",
+    "description": "FMP: annual fundamentals, price trends and saved estimate revisions. Access checked on refresh.",
+    "ids": [
+      "fmp-tsm-revenueGrowth",
+      "fmp-tsm-netMargin",
+      "fmp-tsm-fcfMargin",
+      "fmp-tsm-ma200",
+      "fmp-tsm-epsRevision",
+      "fmp-tsm-incomeGrowth",
+      "fmp-tsm-cashConversion",
+      "fmp-tsm-drawdown",
+      "fmp-tsm-volatility"
+    ]
   }
 ]

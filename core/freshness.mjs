@@ -5,7 +5,7 @@ const imported=s=>['user-first-release','import-revised'].includes(s?.historyQua
 export function refreshableIds(catalogue,selected,cache){
   return [...new Set([...selected,'market','recession'])].filter(id=>{
     const def=catalogue.find(k=>k.id===id);
-    return def&&['fred','multpl','ssga','bundesbank','ecb'].includes(def.adapter)&&!imported(cache[id]);
+    return def&&['fred','multpl','ssga','bundesbank','ecb','fmp'].includes(def.adapter)&&!imported(cache[id]);
   });
 }
 export function dueIds(catalogue,selected,cache,attempts=new Map(),now=Date.now()){
