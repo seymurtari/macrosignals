@@ -42,3 +42,8 @@ test('empty EPS baseline and unavailable status survive local store restart',asy
  const {LocalStore}=await import('../core/storage.cjs');const {mkdtemp,rm}=await import('node:fs/promises');const {tmpdir}=await import('node:os');const dir=await mkdtemp(tmpdir()+'/fmp-persist-');
  try{const store=await new LocalStore(dir,{}).init();await store.putSeries('baseline',{observations:[],coverageStatus:'collecting',fmpSnapshots:[{date:'2026-10-05',estimates:[{period:'2027-09-30',eps:10}]}]});await store.putSeries('blocked',{observations:[],coverageStatus:'unavailable'});const reopened=await new LocalStore(dir,{}).init();assert.equal(reopened.cache.baseline.fmpSnapshots[0].estimates[0].eps,10);assert.equal(reopened.cache.blocked.coverageStatus,'unavailable');assert.equal(reopened.warnings.length,0);}finally{await rm(dir,{recursive:true,force:true});}
 });
+test('Starter requests stay within five years and five annual records',async()=>{
+ const requests=[];const c=createFmpKpis({apiKey:'x',now,fetcher:async address=>{const url=new URL(address);requests.push(url);if(url.pathname.includes('/light')){assert.equal(url.searchParams.get('from'),'2021-10-05');assert.equal(url.searchParams.get('to'),'2026-10-05');return Response.json([{symbol:'AAPL',date:'2026-10-02',price:100}]);}assert.equal(url.searchParams.get('limit'),'5');assert.equal(url.searchParams.get('period'),'annual');return Response.json([row(2025)]);}});
+ for(const symbol of ['AAPL','NVDA','GOOG','BRK.A','ASML','TSM']){await c.fetchMetric(def('netMargin',symbol)).catch(e=>{assert.match(e.message,/No valid/);});}
+ await c.fetchMetric(def('ma200'));assert.equal(requests.length,7);assert.deepEqual(requests.slice(0,6).map(u=>u.searchParams.get('symbol')),['AAPL','NVDA','GOOG','BRK.A','ASML','TSM']);
+});
