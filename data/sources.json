@@ -89,10 +89,10 @@
     "kind": "free",
     "annualCost": "$0 (Basic / Free)",
     "coverage": "Free-plan access to end-of-day historical data and company profiles/reference data; endpoint, symbol and history restrictions apply",
-    "integration": "Free API account; FMP_API_KEY saved in Replit Secrets (user confirmed). Adapter and endpoint validation pending.",
+    "integration": "Server API connection available: use Check FMP connection & access below. KPI retrieval is not yet scheduled.",
     "chrome": "API key authentication; Chrome sign-in is not required. Server secret: FMP_API_KEY.",
     "url": "https://site.financialmodelingprep.com/developer/docs/pricing",
-    "note": "Free plan confirmed 5 Oct 2026: 250 API calls/day; 500 MB trailing 30-day bandwidth. Start with accessible stock-price trends and drawdowns for a small watchlist. Fundamentals, estimates and broad-market coverage are not assumed. Keep existing providers for long histories. Saving the key alone does not enable refresh.",
+    "note": "Free plan: 250 calls/day and 500 MB per trailing 30 days. Connection check probes six AAPL datasets and reports real permissions; other symbols may differ. Prices, fundamentals and estimates are not assumed available. Use FMP_API_KEY in deployment Secrets. Desktop edition: this connection check is available in the web app.",
     "priceDate": "2026-10-05"
   },
   {

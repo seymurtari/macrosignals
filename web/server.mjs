@@ -1,4 +1,5 @@
 import http from 'node:http';
+import {createFmpConnection} from '../core/fmp.mjs';
 import {readFile} from 'node:fs/promises';
 import {createHash,createHmac,timingSafeEqual} from 'node:crypto';
 import {Worker} from 'node:worker_threads';
@@ -14,6 +15,7 @@ const defaults={version:2,selected:catalogue.filter(k=>k.default).map(k=>k.id),m
 const equal=(a,b)=>timingSafeEqual(createHash('sha256').update(a).digest(),createHash('sha256').update(b).digest());
 const loginPage=`<!doctype html><html><head><meta name="viewport" content="width=device-width,initial-scale=1"><title>MacroSignals sign in</title><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=1"><link rel="icon" type="image/png" href="/apple-touch-icon.png?v=1"><style>body{font:17px system-ui;background:#eef3f5;color:#193b42;margin:0;display:grid;place-items:center;min-height:100vh}main{width:min(85vw,360px);padding:28px;background:white;border-radius:20px}input,button{box-sizing:border-box;width:100%;padding:14px;margin-top:12px;font:inherit;border-radius:8px;border:1px solid #aebfc4}button{background:#17665f;color:white}p{line-height:1.5}</style></head><body><main><h1>MacroSignals</h1><p>Your private macroeconomic research workspace.</p><form method="post" action="/login"><label>Workspace password<input name="password" type="password" autocomplete="current-password" required autofocus></label><button>Sign in</button></form></main></body></html>`;
 export async function createApp({env=process.env,fetcher=fetch,store:givenStore}={}){
+  const fmp=createFmpConnection({apiKey:env.FMP_API_KEY||'',fetcher});
   const password=env.APP_PASSWORD||'';
   if(password.length<20)throw Error('Set APP_PASSWORD in Secrets to a unique password of at least 20 characters.');
   const production=env.NODE_ENV==='production'||env.REPLIT_DEPLOYMENT==='1';
@@ -42,6 +44,7 @@ export async function createApp({env=process.env,fetcher=fetch,store:givenStore}
   async function body(req,limit=13000000){let size=0;const chunks=[];for await(const part of req){size+=part.length;if(size>limit)throw Error('Upload exceeds the allowed size.');chunks.push(part);}return Buffer.concat(chunks).toString('utf8');}
   const send=(res,status,data,type='application/json')=>{res.writeHead(status,{'Content-Type':type});res.end(type==='application/json'?JSON.stringify(data):data);};
   const api=async(name,arg)=>{
+    if(name==='fmp-check')return fmp.inspect();
     if(name==='bootstrap'){const snapshot=await store.snapshot();if(snapshot.state.autoRefresh)setTimeout(runAutoRefresh,0).unref();return {catalogue,sources,...snapshot,state:restorePreferences(snapshot.state,defaults),hasKey:!!env.FRED_API_KEY,secureVault:false,warnings:store.warnings,version:'0.2.0-web',platform:'web'};}
     if(name==='save'){const state=await store.update(validatedPatch(arg));if(arg?.autoRefresh)setTimeout(runAutoRefresh,0).unref();return state;}
     if(name==='refresh-one'){
